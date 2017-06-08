@@ -1,0 +1,94 @@
+﻿<Window
+    x:Class="ExpertSystem.View.CreateVariableView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:enum="clr-namespace:ExpertSystem.Model"
+    xmlns:local="clr-namespace:ExpertSystem.ViewModel"
+    x:Name="CreateVariableWin"
+    Title="Create_Variable"
+    Width="300"
+    Height="300"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterOwner">
+
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+
+    <StackPanel>
+
+        <GroupBox Height="100" Header="Define Linguistic Variable">
+            <TextBlock
+                Margin="5"
+                Text="The Linguistic Variables Wizard will help you to create a linguistic variable with an initial set of terms and membership functions. In this step you specify name, color and type of the variable."
+                TextAlignment="Justify"
+                TextWrapping="WrapWithOverflow" />
+        </GroupBox>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock
+                Margin="10,2,2,2"
+                Padding="5"
+                Background="#E0EEEE"
+                Text="Name: " />
+            <TextBox
+                Width="226"
+                Margin="2,2,10,3"
+                Padding="3"
+                HorizontalAlignment="Right"
+                Background="#E0EEEE"
+                Text="{Binding Path=FuzzyVariable.Name, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+
+        <GroupBox Header="Type">
+            <StackPanel>
+                <StackPanel.Resources>
+                    <enum:EnumConverter x:Key="enumBooleanConverter" />
+                </StackPanel.Resources>
+
+                <RadioButton
+                    Margin="5"
+                    CommandParameter="{Binding}"
+                    Content="Input Interface"
+                    IsChecked="{Binding Path=FuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=0, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
+                <RadioButton
+                    Margin="5"
+                    CommandParameter="Output"
+                    Content="Output Interface"
+                    IsChecked="{Binding Path=FuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=1, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
+                <RadioButton
+                    Margin="5"
+                    CommandParameter="Intermediate"
+                    Content="Intermediate"
+                    IsChecked="{Binding Path=FuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=2, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
+
+            </StackPanel>
+        </GroupBox>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="0"
+                Margin="5"
+                Content="Previous"
+                IsEnabled="False" />
+            <Button
+                Grid.Column="1"
+                Margin="5"
+                Command="{Binding MBF_DefinitionWindowOpenCommand}"
+                Content="Next" />
+            <Button
+                Grid.Column="2"
+                Margin="5"
+                Command="{Binding CloseCommand, Mode=OneWay}"
+                CommandParameter="{Binding ElementName=CreateVariableWin}"
+                Content="Cancel" />
+        </Grid>
+
+    </StackPanel>
+</Window>

@@ -1,0 +1,42 @@
+﻿<Window x:Class="ExpertSystem.VariableEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="var1 editor" Height="243.75" Width="302.206">
+    <StackPanel>
+
+        <Menu Height="25" Background="#B0C4DE">
+            <MenuItem Header="Next"/>
+            <MenuItem Header="New"/>
+            <MenuItem Header="Sort"/>
+            <MenuItem Header="MBF"/>
+            <MenuItem Header="Wizard"/>
+        </Menu>
+
+        <Grid Background="#E0FFFF" Margin="0" Height="185">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="200*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Term" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <ListBox Background="#F5F5F5" Margin="10,30,10,5" Grid.Column="0">
+
+                <ListBoxItem Padding="5,2" Content="var1" Foreground="Red"/>
+                <ListBoxItem Padding="5,2" Content="var2" Foreground="Blue"/>
+                <ListBoxItem Padding="5,2" Content="var3" Foreground="Green"/>
+            </ListBox>
+
+            <Label Margin="10,5,5,0" Content="low" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Margin="5,5,5,0" Content="medium" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Label Margin="0,5,10,0" Content="high" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+
+
+            <Canvas Margin="10,30,10,28" Grid.Column="1" Background="White" MinHeight="30"/>
+            <Label Content="0" Grid.Column="1" HorizontalAlignment="Left" Margin="7,152,0,0" VerticalAlignment="Top" Width="18" Height="25"/>
+            <Label Content="0.5" Grid.Column="1" HorizontalAlignment="Left" Margin="83,152,0,0" VerticalAlignment="Top" Width="25" Height="25"/>
+            <Label Content="1" Grid.Column="1" HorizontalAlignment="Left" Margin="160,152,0,0" VerticalAlignment="Top" Width="18" Height="25"/>
+            <Label Content="0.3" Grid.Column="1" HorizontalAlignment="Left" Margin="53,152,0,0" VerticalAlignment="Top" Width="25" Height="25"/>
+            <Label Content="0.7" Grid.Column="1" HorizontalAlignment="Left" Margin="113,152,0,0" VerticalAlignment="Top" Width="25" Height="25"/>
+        </Grid>
+    </StackPanel>
+</Window>

@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:ExpertSystem.ViewModel"
     Title="MainWindow"
-    Width="612.352"
-    Height="432.908"
+    Width="830.888"
+    Height="469.557"
     HorizontalContentAlignment="Stretch"
     Icon="/Images/software_img.png">
 

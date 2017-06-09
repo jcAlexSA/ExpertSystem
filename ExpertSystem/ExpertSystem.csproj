@@ -58,13 +58,13 @@
     <Compile Include="Model\Enumerations.cs" />
     <Compile Include="Model\FuzzyVariable.cs" />
     <Compile Include="Model\Term.cs" />
-    <Compile Include="RuleBlockWizard.xaml.cs">
-      <DependentUpon>RuleBlockWizard.xaml</DependentUpon>
+    <Compile Include="View\RuleBlockWizardView.xaml.cs">
+      <DependentUpon>RuleBlockWizardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="VariableEditor.xaml.cs">
       <DependentUpon>VariableEditor.xaml</DependentUpon>
     </Compile>
-    <Page Include="CommentorVariableWindow.xaml">
+    <Page Include="View\CommentorVariableWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -80,7 +80,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CommentorVariableWindow.xaml.cs">
+    <Compile Include="View\CommentorVariableWindow.xaml.cs">
       <DependentUpon>CommentorVariableWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -92,11 +92,11 @@
       <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MBD_Definition.xaml">
+    <Page Include="View\MBD_DefinitionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RuleBlockWizard.xaml">
+    <Page Include="View\RuleBlockWizardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -106,8 +106,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MBD_Definition.xaml.cs">
-      <DependentUpon>MBD_Definition.xaml</DependentUpon>
+    <Compile Include="View\MBD_DefinitionView.xaml.cs">
+      <DependentUpon>MBD_DefinitionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

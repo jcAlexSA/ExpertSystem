@@ -81,6 +81,7 @@
                 Grid.Column="1"
                 Margin="5"
                 Command="{Binding MBF_DefinitionWindowOpenCommand}"
+                CommandParameter="{Binding ElementName=CreateVariableWin}"
                 Content="Next" />
             <Button
                 Grid.Column="2"

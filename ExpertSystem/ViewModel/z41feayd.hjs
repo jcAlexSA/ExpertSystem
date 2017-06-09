@@ -192,18 +192,10 @@ namespace ExpertSystem.ViewModel
         {
             get
             {
-                if (_openRuleBlockWizard == null)
-                    _openRuleBlockWizard = new RelayCommand(ExecuteOpenRuleBlockWizard, (args) => { return true; });
-                return _openRuleBlockWizard;
+                if(_openRuleBlockWizard == null)
+                    _openRuleBlockWizard = new RelayCommand(ExecuteOpenRuleBlockWizard, (args) => {return true;})
             }
         }
-
-        private void ExecuteOpenRuleBlockWizard(object obj)
-        {
-            new RuleBlockWizard().ShowDialog();
-        }
-
-        #endregion
 
     }
 }

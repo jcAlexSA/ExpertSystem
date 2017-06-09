@@ -89,7 +89,7 @@
             <Canvas.ContextMenu>
                 <ContextMenu>
                     <MenuItem Command="{Binding CreateVariable}" Header="Add Variable" />
-                    <MenuItem Header="Add Rule Block" />
+                    <MenuItem Command="{Binding OpenRuleBlockWizard}" Header="Add Rule Block" />
                     <MenuItem Header="Add Text" />
 
                 </ContextMenu>

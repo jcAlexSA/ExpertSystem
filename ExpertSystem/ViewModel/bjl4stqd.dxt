@@ -35,11 +35,8 @@ namespace ExpertSystem.ViewModel
                 OnPropertyChanged("FuzzyVariable");
             }
         }
-        
 
         #region Create variable window 
-
-
         RelayCommand _createNewVariable;
         public ICommand CreateVariable
         {
@@ -70,7 +67,6 @@ namespace ExpertSystem.ViewModel
 
         private bool CanExecuteMBF_Def_WinOpen(object obj)
         {
-            Console.WriteLine("type: " + _fuzzyVariable.Type.ToString());
             return true; // string.IsNullOrEmpty(FuzzyVariable.Type.ToString());
         }
 
@@ -94,8 +90,9 @@ namespace ExpertSystem.ViewModel
             get { 
                 Console.WriteLine("get open comment var window");
                 if (_openCommentVarWinow == null)
+                {
                     _openCommentVarWinow = new RelayCommand(ExecuteOpenVarWidowCommand, CanExecuteOpenCommentorVarVariableWindow);
-                
+                }
                 return _openCommentVarWinow;
             }
         }
@@ -106,8 +103,7 @@ namespace ExpertSystem.ViewModel
         }
 
         private void ExecuteOpenVarWidowCommand(object obj)
-        {
-            (obj as Window).Close();
+        {           
             CommentorVariableWindow cvw = new CommentorVariableWindow();
             cvw.ShowDialog();
         }
@@ -115,53 +111,24 @@ namespace ExpertSystem.ViewModel
         #endregion
 
 
-        #region Comment variable Window
-
-        RelayCommand _finishCreateVariable;
-        public ICommand FinishCreateVariable
-        {
-            get 
-            {
-                if (_finishCreateVariable == null)
-                    _finishCreateVariable = new RelayCommand(ExecuteFinishCreateVariable, (atg) => { return true; });
-                return _finishCreateVariable; ;
-            }
-        }
-
-        private void ExecuteFinishCreateVariable(object obj)
-        {
-            (obj as Window).Close();
-            //TODO finilize of creation variable
-        }
-
-
-        #endregion 
-
         RelayCommand _openPreviousWindow;
-        public ICommand ReopenPreviousWindow
+        ICommand ReopenPreviousWindow
         {
             get
             {
                 Console.WriteLine("reopen");
                 if (_openPreviousWindow == null)
-                    _openPreviousWindow = new RelayCommand(ExecuteOpenPreviousCreateVarWindow, (arg) => { return true; });
+                    _openPreviousWindow = new RelayCommand(ExecuteOpenPreviousWindow, (arg) => { return true; });
                 return _openPreviousWindow;
             }
         }
 
-        private void ExecuteOpenPreviousCreateVarWindow(object obj)
+        private void ExecuteOpenPreviousWindow(object obj)
         {
-            if (obj is MBD_Definition)
-            {
-                (obj as Window).Close();
-                (new CreateVariableView()).ShowDialog();
-            }
-            else if (obj is CommentorVariableWindow)
-            {
-                (obj as Window).Close();
-                (new MBD_Definition()).ShowDialog();
-            }
+            CreateVariableView crtVarWin = new CreateVariableView();
+            crtVarWin.ShowDialog();
         }
+
 
 
         RelayCommand _closeCommand;
@@ -183,27 +150,5 @@ namespace ExpertSystem.ViewModel
             (obj as Window).Close();
             Console.WriteLine("execute close command");
         }
-
-
-        #region Rule Block Wizard
-
-        RelayCommand _openRuleBlockWizard;
-        public ICommand OpenRuleBlockWizard
-        {
-            get
-            {
-                if (_openRuleBlockWizard == null)
-                    _openRuleBlockWizard = new RelayCommand(ExecuteOpenRuleBlockWizard, (args) => { return true; });
-                return _openRuleBlockWizard;
-            }
-        }
-
-        private void ExecuteOpenRuleBlockWizard(object obj)
-        {
-            new RuleBlockWizard().ShowDialog();
-        }
-
-        #endregion
-
     }
 }

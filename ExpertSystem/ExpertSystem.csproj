@@ -58,6 +58,7 @@
     <Compile Include="Model\Enumerations.cs" />
     <Compile Include="Model\FuzzyVariable.cs" />
     <Compile Include="Model\Term.cs" />
+    <Compile Include="Model\VariablesCollection.cs" />
     <Compile Include="View\RuleBlockWizardView.xaml.cs">
       <DependentUpon>RuleBlockWizardView.xaml</DependentUpon>
     </Compile>

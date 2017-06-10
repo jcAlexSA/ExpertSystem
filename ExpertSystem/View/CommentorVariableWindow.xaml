@@ -18,7 +18,7 @@
         <GroupBox Height="100" Header="Comment for Variable">
             <TextBlock
                 Margin="5"
-                Text="The Linguistic Variables Wizard will help you                         to create a linguistic variable with an initial set                         of terms and membership functions.                        In this step you specify name, color and type of the                        variable."
+                Text="The Linguistic Variables Wizard will help you to create a linguistic variable with an initial set of terms and membership functions. In this step you specify name, color and type of the variable."
                 TextAlignment="Justify"
                 TextWrapping="Wrap" />
         </GroupBox>
@@ -58,7 +58,8 @@
                 Margin="8"
                 Command="{Binding ReopenPreviousWindow}"
                 CommandParameter="{Binding ElementName=CommentorVarWindow}"
-                Content="Previous" />
+                Content="Previous"
+                IsEnabled="false" />
             <Button
                 Grid.Column="1"
                 Margin="8"

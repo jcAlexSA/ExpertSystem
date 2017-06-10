@@ -10,6 +10,7 @@ namespace ExpertSystem.Model
     public class Term 
     {
         private string _nameTerm;
+        private object _valueTerm;
 
         public string NameTerm
         {
@@ -17,7 +18,6 @@ namespace ExpertSystem.Model
             set { _nameTerm = value; }
         }
 
-        private object _valueTerm;
         public object ValueTerm
         {
             get { return _valueTerm; }

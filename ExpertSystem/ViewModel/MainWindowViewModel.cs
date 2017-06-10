@@ -69,7 +69,7 @@ namespace ExpertSystem.ViewModel
 
         private bool CanExecuteMBF_Def_WinOpen(object obj)
         {
-            if (string.IsNullOrEmpty(_fuzzyVariable.Name) || string.IsNullOrEmpty(_fuzzyVariable.Type.ToString()))
+            if (_fuzzyVariable != null && (string.IsNullOrEmpty(_fuzzyVariable.Name) || string.IsNullOrEmpty(_fuzzyVariable.Type.ToString())))
                 return false;
             return true; 
         }
@@ -142,7 +142,7 @@ namespace ExpertSystem.ViewModel
         {
             get
             {
-                Console.WriteLine("reopen");
+                //Console.WriteLine("reopen");
                 if (_openPreviousWindow == null)
                     _openPreviousWindow = new RelayCommand(ExecuteOpenPreviousCreateVarWindow, (arg) => { return true; });
                 return _openPreviousWindow;
@@ -169,7 +169,7 @@ namespace ExpertSystem.ViewModel
         {
             get
             {
-                Console.WriteLine("get close command");
+               // Console.WriteLine("get close command");
                 if (_closeCommand == null)
                 {
                     _closeCommand = new RelayCommand(ExecuteCloseCommand, (args) => { return true; });
@@ -181,7 +181,7 @@ namespace ExpertSystem.ViewModel
         private void ExecuteCloseCommand(object obj)
         {
             (obj as Window).Close();
-            Console.WriteLine("execute close command");
+           // Console.WriteLine("execute close command");
 
             _fuzzyVariable = null;
         }

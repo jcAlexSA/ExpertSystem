@@ -11,21 +11,10 @@ namespace ExpertSystem.Model
         private string _name;
         private List<Term> _terms;
         private string _comment;
-        private VariableType _type = 0;
+        private VariableType _type;
         private int _minValue;
         private int _maxValue;
 
-        public int Max
-        {
-            get { return _maxValue; }
-            set { if(_maxValue != value && _maxValue >= _minValue) _maxValue = value; }
-        }
-
-        public int Min
-        {
-            get { return _minValue; }
-            set { if(_minValue != value && _minValue <= _maxValue)  _minValue = value; }
-        }
         
         public string Name
         {
@@ -68,7 +57,18 @@ namespace ExpertSystem.Model
         public byte Type
         {
             get { return (byte)_type; }
-            set { _type = (VariableType)value; Console.WriteLine(value); }
+            set { _type = (VariableType)value; }
+        }
+        public int Max
+        {
+            get { return _maxValue; }
+            set { if (_maxValue != value && _maxValue >= _minValue) _maxValue = value; }
+        }
+
+        public int Min
+        {
+            get { return _minValue; }
+            set { if (_minValue != value && _minValue <= _maxValue)  _minValue = value; }
         }
 
         public FuzzyVariable() { }

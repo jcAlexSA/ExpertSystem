@@ -48,17 +48,14 @@
 
                 <RadioButton
                     Margin="5"
-                    CommandParameter="{Binding}"
                     Content="Input Interface"
                     IsChecked="{Binding Path=FuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=0, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
                 <RadioButton
                     Margin="5"
-                    CommandParameter="Output"
                     Content="Output Interface"
                     IsChecked="{Binding Path=FuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=1, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
                 <RadioButton
                     Margin="5"
-                    CommandParameter="Intermediate"
                     Content="Intermediate"
                     IsChecked="{Binding Path=FuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=2, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
 

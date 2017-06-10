@@ -101,20 +101,16 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition Width="230" />
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button
-                Grid.Column="0"
-                Margin="15,5"
-                Content="Previous"
-                IsEnabled="False" />
+
             <Button
                 Grid.Column="1"
                 Margin="15,5"
-                Content="Next" />
+                Content="End" />
             <Button
                 Grid.Column="2"
                 Margin="15,5"

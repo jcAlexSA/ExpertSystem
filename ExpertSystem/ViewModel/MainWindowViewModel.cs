@@ -24,6 +24,7 @@ namespace ExpertSystem.ViewModel
                 if (_fuzzyVariable == null) Console.WriteLine("null");
                 else Console.WriteLine("valu : " + (byte) _fuzzyVariable.Type);
                 Console.WriteLine("get value of variable");
+
                 if (_fuzzyVariable == null)
                     _fuzzyVariable = new FuzzyVariable();
                 return _fuzzyVariable;
@@ -70,8 +71,10 @@ namespace ExpertSystem.ViewModel
 
         private bool CanExecuteMBF_Def_WinOpen(object obj)
         {
-            Console.WriteLine("type: " + _fuzzyVariable.Type.ToString());
-            return true; // string.IsNullOrEmpty(FuzzyVariable.Type.ToString());
+            Console.WriteLine("name: {0}; type: {1} ", _fuzzyVariable.Name, _fuzzyVariable.Type);
+            if (string.IsNullOrEmpty(_fuzzyVariable.Name) || string.IsNullOrEmpty(_fuzzyVariable.Type.ToString()))
+                return false;
+            return true; 
         }
 
         private void ExecuteMBF_Def_WinOpen(object obj)

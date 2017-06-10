@@ -9,7 +9,7 @@ namespace ExpertSystem.Model
 {
     public enum VariableType : byte
     {
-        Intput = 0,
+        Input = 0,
         Output,
         Intermediate
     };
@@ -19,11 +19,13 @@ namespace ExpertSystem.Model
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return value;
+            Console.WriteLine("value: {0}, param: {1}", value, System.Convert.ToByte(parameter));
+            return System.Convert.ToByte(parameter);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            Console.WriteLine("value: {0}, param: {1}", value, System.Convert.ToByte(parameter));
             return System.Convert.ToByte(parameter);
         }
     }

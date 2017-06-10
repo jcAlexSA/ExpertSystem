@@ -18,7 +18,7 @@ namespace ExpertSystem.Model
         
         public string Name
         {
-            get { return _name; }
+            get { Console.WriteLine("_name: " + _name); return _name; }
             set { if (string.Compare(_name, value, true) != 0) _name = value; }
         }
 
@@ -56,8 +56,8 @@ namespace ExpertSystem.Model
 
         public byte Type
         {
-            get { return (byte)_type; }
-            set { _type = (VariableType)value; }
+            get { Console.WriteLine("TYPE : " + (byte)_type); return (byte)_type; }
+            set { _type = (VariableType)value; Console.WriteLine("VALUE : " + value); }
         }
         public int Max
         {
@@ -72,7 +72,7 @@ namespace ExpertSystem.Model
         }
 
         public FuzzyVariable() { }
-
+        
         public FuzzyVariable(string name)
         {
             _name = name;

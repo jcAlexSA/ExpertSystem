@@ -37,15 +37,15 @@
                 Padding="3"
                 HorizontalAlignment="Right"
                 Background="#E0EEEE"
-                Text="{Binding Path=FuzzyVariable.Name, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding Path=FuzzyVariable.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
         </StackPanel>
 
         <GroupBox Header="Type">
+
             <StackPanel>
                 <StackPanel.Resources>
                     <enum:EnumConverter x:Key="enumBooleanConverter" />
                 </StackPanel.Resources>
-
                 <RadioButton
                     Margin="5"
                     Content="Input Interface"

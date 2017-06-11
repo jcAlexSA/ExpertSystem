@@ -42,23 +42,27 @@ namespace ExpertSystem.Model
         public string Comment
         {
             get { return _comment; }
-            set { _comment = value; }
+            set { _comment = value; Console.WriteLine("Comment: " + _comment); }
         }
 
-        public int CountTerms
-        {
-            get
-            {
-                if (_terms != null) 
-                    return _terms.Count;
-                return 0;
-            }
-            set
-            {
-                if (_terms != null) _terms.Clear();
-                _terms = new List<Term>(value);
-            }
-        }
+        //public int CountTerms
+        //{
+        //    get
+        //    {
+        //        if (_terms != null)
+        //        {
+        //            Console.WriteLine("get count: " + _terms.Count);
+        //            return _terms.Count;
+        //        }
+        //        return 0;
+        //    }
+        //    set
+        //    {
+        //        if (_terms != null) _terms.Clear();
+        //        _terms = new List<Term>(value);
+        //        Console.WriteLine("set count: " + _terms.Count);
+        //    }
+        //}
 
         public byte Type
         {

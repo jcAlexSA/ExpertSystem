@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExpertSystem.Model.MMBF_Functions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +8,10 @@ using System.Windows.Data;
 
 namespace ExpertSystem.Model
 {
-    public class Term 
+    public class Term
     {
         private string _nameTerm;
-        private object _valueTerm;
+        private TriangleFunction _function; 
 
         public string NameTerm
         {
@@ -18,10 +19,16 @@ namespace ExpertSystem.Model
             set { _nameTerm = value; }
         }
 
-        public object ValueTerm
+        public TriangleFunction Function
         {
-            get { return _valueTerm; }
-            set { _valueTerm = value; }
+            get { return _function; }
+            set { _function = value; }
         }
-    }
+        public override string ToString()
+        {
+            return string.Format("Term:{0}; Type Function:{1}; Low:{2}; Mid{3}; High:{4}", 
+                NameTerm, Function.Name, Function.Low, Function.Mid, Function.High);
+        }
+        
+    }        
 }

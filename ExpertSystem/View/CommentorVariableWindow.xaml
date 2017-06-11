@@ -26,25 +26,18 @@
 
         <TextBlock
             Margin="10,2,10,2"
-            Padding="3"
-            Text="Variable name exlplanation:" />
-        <TextBox
-            Height="25"
-            Margin="10,3"
-            Padding="3"
-            HorizontalAlignment="Stretch"
-            Background="#E0EEEE" />
-
-        <TextBlock
-            Margin="10,2,10,2"
             Padding="2"
             Text="Comment" />
         <TextBox
-            Height="50"
+            Height="100"
             Margin="10,5"
             Padding="3"
             HorizontalAlignment="Stretch"
-            Background="#E0EEEE" />
+            AcceptsReturn="True"
+            Background="#E0EEEE"
+            Text="{Binding FuzzyVariable.Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            TextAlignment="Justify"
+            TextWrapping="Wrap" />
 
         <Grid Margin="0">
             <Grid.ColumnDefinitions>
@@ -63,7 +56,7 @@
             <Button
                 Grid.Column="1"
                 Margin="8"
-                Command="{Binding FinishCreateVariable}"
+                Command="{Binding FinishCreateFuzzyVariable}"
                 CommandParameter="{Binding ElementName=CommentorVarWindow}"
                 Content="End" />
             <Button

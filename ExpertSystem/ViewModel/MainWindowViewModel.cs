@@ -1,9 +1,11 @@
 ﻿using ExpertSystem.Model;
+using ExpertSystem.Model.MMBF_Functions;
 using ExpertSystem.View;
 using MVVM_Sample.Infrastructure;
 using MVVM_Sample.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -15,33 +17,111 @@ namespace ExpertSystem.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        Coordinate _coordinate;
-        public Coordinate CoordinatePressed
+        TriangleFunction _function;
+        public TriangleFunction Function
         {
             get
             {
-                if (_coordinate == null)
-                    _coordinate = new Coordinate();
-                return _coordinate;
+                if (_function == null)
+                    _function = new TriangleFunction();
+                return _function;
             }
             set
             {
-                _coordinate = value;
-                OnPropertyChanged("CoordinatePressed");
+                _function = value;
+                OnPropertyChanged("Function");
+            }
+        }
+
+        Term _term;
+        public Term TermProp
+        {
+            get
+            {
+                if (_term == null)
+                    _term = new Term();
+                return _term;
+            }
+            set
+            {
+                _term = value;
+                OnPropertyChanged("TermProp");
+            }
+        }
+
+        ObservableCollection<Term> _currentTermsCollection;
+        public ObservableCollection<Term> CurrentTermsCollection
+        {
+            get
+            {
+                if (_currentTermsCollection == null)
+                    _currentTermsCollection = TermsCollection.TermCollection;
+                return _currentTermsCollection;
+            }
+        }
+
+        RelayCommand _addTerm;
+        public ICommand AddTerm
+        {
+            get
+            {
+                if (_addTerm == null)
+                    _addTerm = new RelayCommand(ExecuteAddTerm, CanExecuteAddTerm);
+                return _addTerm;
+            }
+        }
+
+        private bool CanExecuteAddTerm(object obj)
+        {
+            if (string.IsNullOrEmpty(Function.Name) || string.IsNullOrEmpty(TermProp.NameTerm) || Function.Low > Function.Mid || Function.Mid > Function.High)
+            {
+                Console.WriteLine("Function.name: " + Function.Name);
+                Console.WriteLine("TermProp.NameTerm: " + TermProp.NameTerm);
+                Console.WriteLine("Function.Low: " + Function.Low);
+                Console.WriteLine("Function.Mid: " + Function.Mid);
+                Console.WriteLine("Function.High: " + Function.High);
+                return false;
+            }
+            return true;
+
+        }
+
+        private void ExecuteAddTerm(object obj)
+        {
+            if (Function.Low > Function.Mid || Function.Mid > Function.High)
+            {
+                MessageBox.Show("Input error: The parameters of triangle membership function couldn`t has such values! (Low <= Mid <= High)");
+                return;
+            }
+            TermProp.Function = Function;
+            if (TermProp.Function == null)
+            {
+                Console.WriteLine("FUNCTION IS NULL");
+                return;
+            }
+            CurrentTermsCollection.Add(TermProp);
+            TermProp = null;
+            Function = null;
+
+            Console.WriteLine("terms collection:");
+            foreach (var item in CurrentTermsCollection)
+            {
+                Console.WriteLine(item.NameTerm + " " + item.Function.Name + " " + item.Function.Low + " " + item.Function.Mid + " " + item.Function.High);                
             }
         }
 
 
-        FuzzyVariable _fuzzyVariable;
 
-        public FuzzyVariable FuzzyVariable
+
+        static FuzzyVariable _fuzzyVariable;
+        public FuzzyVariable FuzzyVariable      //текущая переменная
         {
             get
             {
                 Console.WriteLine("get value of variable");
                 if (_fuzzyVariable == null)
                     _fuzzyVariable = new FuzzyVariable();
-                
+
                 return _fuzzyVariable;
             }
             set
@@ -51,12 +131,25 @@ namespace ExpertSystem.ViewModel
                 OnPropertyChanged("FuzzyVariable");
             }
         }
-        
-
-        #region Create variable window 
 
 
-        RelayCommand _createNewVariable;
+        ObservableCollection<FuzzyVariable> _variablesCollection;
+        public ObservableCollection<FuzzyVariable> VarCollection
+        {
+            get
+            {
+                if (_variablesCollection == null)
+                    _variablesCollection = VariablesCollection.AllVariables;
+                return _variablesCollection;
+            }
+        }
+
+
+
+
+        #region Create variable window          
+
+        RelayCommand _createNewVariable;               
         public ICommand CreateVariable
         {
             get
@@ -103,27 +196,37 @@ namespace ExpertSystem.ViewModel
         #endregion
                
 
-        #region MBF_def window
 
-        RelayCommand _openCommentVarWinow;
+       
+        #region MBF Definition window           
+
+        RelayCommand _openCommentVarWindow;              
         public ICommand CommentorVariableWindowOpen
         {
             get { 
                 Console.WriteLine("get open comment var window");
-                if (_openCommentVarWinow == null)
-                    _openCommentVarWinow = new RelayCommand(ExecuteOpenVarWidowCommand, CanExecuteOpenCommentorVarVariableWindow);
+                if (_openCommentVarWindow == null)
+                    _openCommentVarWindow = new RelayCommand(ExecuteOpenCommentVarWidowCommand, CanExecuteOpenCommentorVarWindow);
                 
-                return _openCommentVarWinow;
+                return _openCommentVarWindow;
             }
         }
 
-        private bool CanExecuteOpenCommentorVarVariableWindow(object obj)
+        private bool CanExecuteOpenCommentorVarWindow(object obj)
         {
-            return true;        //  TODO RETURN ALLOW OFS CAN EXECUTE
+            return true;       
         }
 
-        private void ExecuteOpenVarWidowCommand(object obj)
+        private void ExecuteOpenCommentVarWidowCommand(object obj)
         {
+            FuzzyVariable.Terms = CurrentTermsCollection.ToList();
+
+            Console.WriteLine("int var: " + FuzzyVariable.Name + " such terms: ");
+            foreach (var item in FuzzyVariable.Terms)
+            {
+                Console.WriteLine(" _ " + item.NameTerm);
+            }
+
             (obj as Window).Close();
             CommentorVariableWindow cvw = new CommentorVariableWindow();
             cvw.ShowDialog();
@@ -132,27 +235,44 @@ namespace ExpertSystem.ViewModel
         #endregion
 
 
+
+
+
         #region Comment variable Window
 
-        RelayCommand _finishCreateVariable;
-        public ICommand FinishCreateVariable
+
+        RelayCommand _finishCreateFuzzyVariable;
+        public ICommand FinishCreateFuzzyVariable
         {
-            get 
+            get
             {
-                if (_finishCreateVariable == null)
-                    _finishCreateVariable = new RelayCommand(ExecuteFinishCreateVariable, (atg) => { return true; });
-                return _finishCreateVariable; ;
+                if (_finishCreateFuzzyVariable == null)
+                    _finishCreateFuzzyVariable = new RelayCommand(ExecuteAddFuzzyVariable, (args) => { return true; });
+                return _finishCreateFuzzyVariable;
             }
         }
 
-        private void ExecuteFinishCreateVariable(object obj)
+        private void ExecuteAddFuzzyVariable(object obj)
         {
             (obj as Window).Close();
-            //TODO finilize of creation variable
+
+            VarCollection.Add(FuzzyVariable);
+            FuzzyVariable = null;
+
+            //Console.WriteLine("NAME : "+ _curName);
+
+            Console.WriteLine("Current collection : ");
+            foreach (var item in VarCollection)
+            {
+                Console.WriteLine(item.Name + " " + item.Type + " " + item.Comment + " " + item.Min + " " + item.Max);
+            }
         }
 
 
         #endregion 
+
+
+
 
         RelayCommand _openPreviousWindow;
         public ICommand ReopenPreviousWindow
@@ -165,7 +285,6 @@ namespace ExpertSystem.ViewModel
                 return _openPreviousWindow;
             }
         }
-
         private void ExecuteOpenPreviousCreateVarWindow(object obj)
         {
             if (obj is MBD_Definition)
@@ -179,6 +298,7 @@ namespace ExpertSystem.ViewModel
                 (new MBD_Definition()).ShowDialog();
             }
         }
+
 
 
         RelayCommand _closeCommand;
@@ -201,8 +321,9 @@ namespace ExpertSystem.ViewModel
            // Console.WriteLine("execute close command");
 
             _fuzzyVariable = null;
-            _coordinate = null;
         }
+
+
 
 
         #region Rule Block Wizard
@@ -224,6 +345,7 @@ namespace ExpertSystem.ViewModel
         }
 
         #endregion
+
 
     }
 }

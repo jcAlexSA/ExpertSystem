@@ -58,16 +58,16 @@
     <Compile Include="Model\Coordinate.cs" />
     <Compile Include="Model\Enumerations.cs" />
     <Compile Include="Model\FuzzyVariable.cs" />
+    <Compile Include="Model\MMBF_Functions\I_MMBF_Function.cs" />
+    <Compile Include="Model\MMBF_Functions\TriangleFunction.cs" />
     <Compile Include="Model\Term.cs" />
+    <Compile Include="Model\TermsCollection.cs" />
     <Compile Include="Model\VariablesCollection.cs" />
     <Compile Include="View\RuleBlockWizardView.xaml.cs">
       <DependentUpon>RuleBlockWizardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="VariableEditor.xaml.cs">
       <DependentUpon>VariableEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TermsEditorView.xaml.cs">
-      <DependentUpon>TermsEditorView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\CommentorVariableWindow.xaml">
       <SubType>Designer</SubType>
@@ -106,10 +106,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VariableEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\TermsEditorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

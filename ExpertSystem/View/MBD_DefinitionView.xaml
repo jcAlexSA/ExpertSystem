@@ -5,8 +5,8 @@
     xmlns:local="clr-namespace:ExpertSystem.ViewModel"
     Name="MBF_DefinitionWindow"
     Title="MBF_Definition"
-    Width="303"
-    Height="259"
+    Width="325"
+    Height="432"
     ResizeMode="NoResize">
     <Window.DataContext>
         <local:MainWindowViewModel />
@@ -15,7 +15,7 @@
         <GroupBox Height="100" Header="MBF Definition">
             <TextBlock
                 Margin="5"
-                Text="In this step you specify the number of terms,                        which determines the choice of term names and the membership function definitions for the set of terms to be created."
+                Text="In this step you specify the number of terms, that determines the choice of term names and the membership function definitions for the set of terms to be created."
                 TextAlignment="Justify"
                 TextWrapping="Wrap" />
         </GroupBox>
@@ -32,7 +32,7 @@
                 Margin="20,2,10,3"
                 Padding="3"
                 Background="#E0EEEE"
-                Text="{Binding FuzzyVariable.Min, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                Text="{Binding FuzzyVariable.Min, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
             <TextBlock
                 Margin="10,2,2,2"
                 Padding="5,5,30,5"
@@ -44,27 +44,96 @@
                 Margin="20,2,10,3"
                 Padding="3"
                 Background="#E0EEEE"
-                Text="{Binding FuzzyVariable.Max, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                Text="{Binding FuzzyVariable.Max, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
         </StackPanel>
 
-        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-            <TextBlock
-                Margin="10,2,2,2"
-                Padding="5"
-                Background="#E0EEEE"
-                Text="Number terms: " />
-            <TextBox
-                Name="textBoxNumber"
-                Width="66"
-                Margin="20,2,10,3"
-                Padding="3"
-                HorizontalAlignment="Right"
-                Background="#E0EEEE"
-                PreviewTextInput="TextBox_PreviewTextInput"
-                Text="{Binding FuzzyVariable.CountTerms}" />
-        </StackPanel>
 
-        <Grid Margin="0,20,0,0">
+
+        <GroupBox Header="Add term">
+
+            <StackPanel Margin="5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Margin="2"
+                        Padding="3"
+                        Background="#E0EEEE"
+                        Text="Name of term" />
+                    <TextBox
+                        Width="205"
+                        Margin="2"
+                        Padding="3"
+                        Background="#E0EEEE"
+                        Text="{Binding TermProp.NameTerm, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Margin="2"
+                        Padding="3"
+                        Background="#E0EEEE"
+                        Text="Type of term" />
+                    <ComboBox
+                        Width="205"
+                        Margin="2"
+                        Padding="4"
+                        Background="#E0EEEE">
+                        <ComboBoxItem
+                            Content="Triangle"
+                            IsEnabled="True"
+                            IsSelected="True" />
+                        <ComboBoxItem Content="Gauss" IsEnabled="False" />
+                    </ComboBox>
+
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Margin="2"
+                        Padding="3"
+                        Background="#E0EEEE"
+                        Text="Low" />
+                    <TextBox
+                        Width="50"
+                        Margin="2"
+                        Padding="3"
+                        Background="#E0EEEE"
+                        Text="{Binding Function.Low, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
+                    <TextBlock
+                        Margin="20,2,2,2"
+                        Padding="3"
+                        Background="#E0EEEE"
+                        Text="Mid" />
+                    <TextBox
+                        Width="50"
+                        Margin="2"
+                        Padding="3"
+                        Background="#E0EEEE"
+                        Text="{Binding Function.Mid, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
+                    <TextBlock
+                        Margin="20,2,2,2"
+                        Padding="3"
+                        Background="#E0EEEE"
+                        Text="High" />
+                    <TextBox
+                        Width="50"
+                        Margin="2"
+                        Padding="3"
+                        Background="#E0EEEE"
+                        Text="{Binding Function.High, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
+                </StackPanel>
+                <Button
+                    Margin="3"
+                    Command="{Binding AddTerm}"
+                    Content="Add term" />
+            </StackPanel>
+
+        </GroupBox>
+
+        <ListBox
+            Name="ListBoxPersons"
+            Height="80"
+            ItemsSource="{Binding Path=CurrentTermsCollection}" />
+
+
+        <Grid Margin="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />

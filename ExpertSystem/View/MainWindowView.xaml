@@ -85,6 +85,10 @@
             VerticalAlignment="Stretch"
             Background="#F8F8FF">
 
+            <Canvas.InputBindings>
+                <MouseBinding Command="{Binding SetCoordinatePressed}" MouseAction="RightClick" />
+            </Canvas.InputBindings>
+
 
             <Canvas.ContextMenu>
                 <ContextMenu>

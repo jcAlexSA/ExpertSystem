@@ -55,6 +55,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Infrastructure\RelayCommand.cs" />
+    <Compile Include="Model\Coordinate.cs" />
     <Compile Include="Model\Enumerations.cs" />
     <Compile Include="Model\FuzzyVariable.cs" />
     <Compile Include="Model\Term.cs" />
@@ -64,6 +65,9 @@
     </Compile>
     <Compile Include="VariableEditor.xaml.cs">
       <DependentUpon>VariableEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TermsEditorView.xaml.cs">
+      <DependentUpon>TermsEditorView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\CommentorVariableWindow.xaml">
       <SubType>Designer</SubType>
@@ -102,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VariableEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TermsEditorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

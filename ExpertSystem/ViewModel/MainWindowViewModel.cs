@@ -15,6 +15,23 @@ namespace ExpertSystem.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        Coordinate _coordinate;
+        public Coordinate CoordinatePressed
+        {
+            get
+            {
+                if (_coordinate == null)
+                    _coordinate = new Coordinate();
+                return _coordinate;
+            }
+            set
+            {
+                _coordinate = value;
+                OnPropertyChanged("CoordinatePressed");
+            }
+        }
+
+
         FuzzyVariable _fuzzyVariable;
 
         public FuzzyVariable FuzzyVariable
@@ -184,6 +201,7 @@ namespace ExpertSystem.ViewModel
            // Console.WriteLine("execute close command");
 
             _fuzzyVariable = null;
+            _coordinate = null;
         }
 
 

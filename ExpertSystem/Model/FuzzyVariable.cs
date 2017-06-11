@@ -49,8 +49,14 @@ namespace ExpertSystem.Model
         {
             get
             {
-                if (_terms != null) return _terms.Count;
-                else return 0;
+                if (_terms != null) 
+                    return _terms.Count;
+                return 0;
+            }
+            set
+            {
+                if (_terms != null) _terms.Clear();
+                _terms = new List<Term>(value);
             }
         }
 
@@ -61,14 +67,14 @@ namespace ExpertSystem.Model
         }
         public int Max
         {
-            get { return _maxValue; }
-            set { if (_maxValue != value && _maxValue >= _minValue) _maxValue = value; }
+            get { Console.WriteLine("get max: " + _maxValue); return _maxValue; }
+            set { if (_maxValue != value && _maxValue >= _minValue) { _maxValue = value; Console.WriteLine("set max: " + _maxValue); } }
         }
 
         public int Min
         {
-            get { return _minValue; }
-            set { if (_minValue != value && _minValue <= _maxValue)  _minValue = value; }
+            get { Console.WriteLine("get min: " + _minValue); return _minValue; }
+            set { if (_minValue != value && _minValue <= _maxValue) { _minValue = value; Console.WriteLine("set min: " + _minValue); } }
         }
 
         public FuzzyVariable() { }

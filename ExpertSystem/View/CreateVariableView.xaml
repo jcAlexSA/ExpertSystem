@@ -5,64 +5,216 @@
     xmlns:enum="clr-namespace:ExpertSystem.Model"
     xmlns:local="clr-namespace:ExpertSystem.ViewModel"
     x:Name="CreateVariableWin"
-    Title="Create_Variable"
-    Width="300"
-    Height="300"
+    Title="Create Variable Wizard"
+    Width="461"
+    Height="364"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterOwner">
 
     <Window.DataContext>
         <local:MainWindowViewModel />
     </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="2,5" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Background" Value="Lavender" />
+        </Style>
+    </Window.Resources>
 
-    <StackPanel>
+    <DockPanel>
 
-        <GroupBox Height="100" Header="Define Linguistic Variable">
-            <TextBlock
-                Margin="5"
-                Text="The Linguistic Variables Wizard will help you to create a linguistic variable with an initial set of terms and membership functions. In this step you specify name, color and type of the variable."
-                TextAlignment="Justify"
-                TextWrapping="WrapWithOverflow" />
-        </GroupBox>
+        <TabControl DockPanel.Dock="Top">
+            <!--  first step (tab)  -->
+            <TabItem
+                Width="100"
+                Background="LightGray"
+                Header="First step">
+                <StackPanel>
+                    <GroupBox Header="Define Linguistic Variable">
+                        <TextBlock
+                            Margin="5"
+                            Text="The Linguistic Variables Wizard will help you to create a linguistic variable with an initial set of terms and membership functions. In this step you specify name, color and type of the variable."
+                            TextAlignment="Justify"
+                            TextWrapping="WrapWithOverflow" />
+                    </GroupBox>
 
-        <StackPanel Orientation="Horizontal">
-            <TextBlock
-                Margin="10,2,2,2"
-                Padding="5"
-                Background="#E0EEEE"
-                Text="Name: " />
-            <TextBox
-                Width="226"
-                Margin="2,2,10,3"
-                Padding="3"
-                HorizontalAlignment="Right"
-                Background="#E0EEEE"
-                Text="{Binding Path=FuzzyVariable.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-        </StackPanel>
+                    <DockPanel Width="Auto" LastChildFill="True">
+                        <TextBlock
+                            Margin="10,2,2,2"
+                            Padding="5"
+                            Text="Name: " />
+                        <TextBox Margin="5,2" />
+                    </DockPanel>
 
-        <GroupBox Header="Type">
+                    <GroupBox BorderBrush="SlateGray" Header="Type">
 
-            <StackPanel>
-                <StackPanel.Resources>
-                    <enum:EnumConverter x:Key="enumBooleanConverter" />
-                </StackPanel.Resources>
-                <RadioButton
-                    Margin="5"
-                    Content="Input Interface"
-                    IsChecked="{Binding Path=FuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=0, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
-                <RadioButton
-                    Margin="5"
-                    Content="Output Interface"
-                    IsChecked="{Binding Path=FuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=1, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
-                <RadioButton
-                    Margin="5"
-                    Content="Intermediate"
-                    IsChecked="{Binding Path=FuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=2, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
+                        <StackPanel>
+                            <StackPanel.Resources>
+                                <enum:EnumConverter x:Key="enumBooleanConverter" />
+                            </StackPanel.Resources>
+                            <RadioButton
+                                Margin="5"
+                                Content="Input Interface"
+                                IsChecked="{Binding Path=FuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=0, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
+                            <RadioButton
+                                Margin="5"
+                                Content="Output Interface"
+                                IsChecked="{Binding Path=FuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=1, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
+                            <RadioButton
+                                Margin="5"
+                                Content="Intermediate"
+                                IsChecked="{Binding Path=FuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=2, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
 
-            </StackPanel>
-        </GroupBox>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem
+                Width="100"
+                Background="LightGray"
+                Header="Second step">
+                <!--  second step (tab)  -->
+                <StackPanel>
+                    <GroupBox Header="MBF Definition">
+                        <TextBlock
+                            Margin="5"
+                            Text="In this step you specify the number of terms, that determines the choice of term names and the membership function definitions for the set of terms to be created."
+                            TextAlignment="Justify"
+                            TextWrapping="Wrap" />
+                    </GroupBox>
 
-        <Grid>
+                    <DockPanel
+                        MinHeight="30"
+                        HorizontalAlignment="Center"
+                        LastChildFill="False">
+                        <TextBlock MinWidth="50" Text="Min:" />
+                        <TextBox MinWidth="100" />
+                        <TextBlock
+                            MinWidth="50"
+                            Margin="25,5"
+                            Text="Max:" />
+                        <TextBox MinWidth="100" />
+                    </DockPanel>
+
+
+
+                    <GroupBox BorderBrush="LightSlateGray" Header="Add term">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Name of term" />
+                            <TextBox Grid.Column="1" Margin="2" />
+
+                            <DockPanel
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Margin="2"
+                                HorizontalAlignment="Center"
+                                LastChildFill="False">
+                                <TextBlock MinWidth="50" Text="Low" />
+                                <TextBox MinWidth="80" />
+                                <TextBlock
+                                    MinWidth="50"
+                                    Margin="10,0,0,0"
+                                    Text="Mid" />
+                                <TextBox MinWidth="80" />
+                                <TextBlock
+                                    MinWidth="50"
+                                    Margin="10,0,0,0"
+                                    Text="High" />
+                                <TextBox MinWidth="80" />
+                            </DockPanel>
+                            <Button
+                                Grid.Row="2"
+                                Grid.ColumnSpan="2"
+                                MinWidth="200"
+                                Margin="0,3"
+                                HorizontalAlignment="Center"
+                                Background="LightGray"
+                                Content="Add term"
+                                Foreground="Black">
+
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="LightSlateGray" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <!--  propbably dataGrid will be better to use  -->
+                            <ListBox
+                                Grid.Row="3"
+                                Grid.ColumnSpan="2"
+                                Height="50" />
+                        </Grid>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+
+            <!--  third step (tab)  -->
+            <TabItem
+                Width="100"
+                Background="LightGray"
+                Header="Third step">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <GroupBox Height="100" Header="Comment for Variable">
+                        <TextBlock
+                            Margin="5"
+                            Text="The Linguistic Variables Wizard will help you to create a linguistic variable with an initial set of terms and membership functions. In this step you specify name, color and type of the variable."
+                            TextAlignment="Justify"
+                            TextWrapping="Wrap" />
+                    </GroupBox>
+
+                    <GroupBox
+                        Grid.Row="1"
+                        Height="155"
+                        BorderBrush="LightSlateGray"
+                        Header="Comment">
+                        <TextBox
+                            Margin="2"
+                            AcceptsReturn="True"
+                            TextAlignment="Justify"
+                            TextWrapping="Wrap" />
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <!--  controll buttons  -->
+        <Grid
+            Height="35"
+            VerticalAlignment="Bottom"
+            DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -72,21 +224,80 @@
             <Button
                 Grid.Column="0"
                 Margin="5"
+                Background="SteelBlue"
                 Content="Previous"
-                IsEnabled="False" />
+                Foreground="White"
+                IsEnabled="False">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightSlateGray" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
             <Button
                 Grid.Column="1"
                 Margin="5"
-                Command="{Binding MBF_DefinitionWindowOpenCommand}"
-                CommandParameter="{Binding ElementName=CreateVariableWin}"
-                Content="Next" />
+                Background="SteelBlue"
+                Content="Next"
+                Foreground="White">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightSlateGray" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
             <Button
                 Grid.Column="2"
                 Margin="5"
-                Command="{Binding CloseCommand, Mode=OneWay}"
-                CommandParameter="{Binding ElementName=CreateVariableWin}"
-                Content="Cancel" />
+                Background="SteelBlue"
+                Content="Cancel"
+                Foreground="White">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightSlateGray" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
 
-    </StackPanel>
+    </DockPanel>
 </Window>

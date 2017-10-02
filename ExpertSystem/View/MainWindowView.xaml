@@ -36,7 +36,7 @@
             VerticalAlignment="Top"
             Background="#C1CDCD">
             <MenuItem Width="Auto" Header="File">
-                <MenuItem
+                <!--<MenuItem
                     Width="Auto"
                     Header="New"
                     ToolTip="(Ctrl+N)" />
@@ -55,13 +55,10 @@
                 <MenuItem
                     Width="Auto"
                     Header="Close"
-                    ToolTip="(Shift+Ctrl+S)" />
+                    ToolTip="(Shift+Ctrl+S)" />-->
             </MenuItem>
             <MenuItem Header="Edit">
-                <MenuItem
-                    Width="Auto"
-                    Command="{Binding CreateVariable}"
-                    Header="New Variable..." />
+                <MenuItem Width="Auto" Header="New Variable..." />
                 <MenuItem Width="Auto" Header="New Rule Block..." />
                 <MenuItem Width="Auto" Header="New Text..." />
             </MenuItem>
@@ -74,28 +71,25 @@
             <MenuItem Header="View" />
             <MenuItem Header="Window" />
             <MenuItem Header="Help" />
-
         </Menu>
+
         <Canvas
-            Name="canvas_drawing"
             Grid.Row="1"
             Grid.Column="1"
             Margin="5"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            Background="#F8F8FF">
+            Background="WhiteSmoke">
 
             <Canvas.InputBindings>
-                <MouseBinding Command="{Binding SetCoordinatePressed}" MouseAction="RightClick" />
+                <MouseBinding MouseAction="RightClick" />
             </Canvas.InputBindings>
-
 
             <Canvas.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Command="{Binding CreateVariable}" Header="Add Variable" />
-                    <MenuItem Command="{Binding OpenRuleBlockWizard}" Header="Add Rule Block" />
+                    <MenuItem Header="Add Variable" />
+                    <MenuItem Header="Add Rule Block" />
                     <MenuItem Header="Add Text" />
-
                 </ContextMenu>
             </Canvas.ContextMenu>
 

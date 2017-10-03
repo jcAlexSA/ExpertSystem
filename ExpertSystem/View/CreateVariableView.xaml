@@ -12,30 +12,58 @@
     WindowStartupLocation="CenterOwner">
 
     <Window.DataContext>
-        <local:MainWindowViewModel />
+        <local:CreateVariableViewModel />
     </Window.DataContext>
+
     <Window.Resources>
+        <!--  textBlock  -->
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="Margin" Value="2,5" />
         </Style>
+        <!--  textBox  -->
         <Style TargetType="TextBox">
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="Background" Value="Lavender" />
         </Style>
+        <!--  Buttons  -->
+        <Style x:Key="ButtonControlStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Background" Value="RoyalBlue" />
+            <Setter Property="Foreground" Value="White" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="CornflowerBlue" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightSteelBlue" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
     </Window.Resources>
 
     <DockPanel>
 
-        <TabControl DockPanel.Dock="Top">
+        <TabControl Name="TabControlWizard" DockPanel.Dock="Top">
             <!--  first step (tab)  -->
             <TabItem
                 Width="100"
                 Background="LightGray"
                 Header="First step">
                 <StackPanel>
-                    <GroupBox Header="Define Linguistic Variable">
+                    <GroupBox Margin="15,0" Header="Define Linguistic Variable">
                         <TextBlock
                             Margin="5"
                             Text="The Linguistic Variables Wizard will help you to create a linguistic variable with an initial set of terms and membership functions. In this step you specify name, color and type of the variable."
@@ -43,15 +71,21 @@
                             TextWrapping="WrapWithOverflow" />
                     </GroupBox>
 
-                    <DockPanel Width="Auto" LastChildFill="True">
+                    <DockPanel
+                        Width="Auto"
+                        Margin="20,10,20,0"
+                        LastChildFill="True">
                         <TextBlock
                             Margin="10,2,2,2"
                             Padding="5"
                             Text="Name: " />
-                        <TextBox Margin="5,2" />
+                        <TextBox Margin="5,2" Text="{Binding Path=NewFuzzyVariable.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </DockPanel>
 
-                    <GroupBox BorderBrush="SlateGray" Header="Type">
+                    <GroupBox
+                        Margin="20,10"
+                        BorderBrush="SteelBlue"
+                        Header="Type">
 
                         <StackPanel>
                             <StackPanel.Resources>
@@ -60,15 +94,15 @@
                             <RadioButton
                                 Margin="5"
                                 Content="Input Interface"
-                                IsChecked="{Binding Path=FuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=0, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
+                                IsChecked="{Binding Path=NewFuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=0, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
                             <RadioButton
                                 Margin="5"
                                 Content="Output Interface"
-                                IsChecked="{Binding Path=FuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=1, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
+                                IsChecked="{Binding Path=NewFuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=1, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
                             <RadioButton
                                 Margin="5"
                                 Content="Intermediate"
-                                IsChecked="{Binding Path=FuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=2, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
+                                IsChecked="{Binding Path=NewFuzzyVariable.Type, Converter={StaticResource enumBooleanConverter}, ConverterParameter=2, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
 
                         </StackPanel>
                     </GroupBox>
@@ -145,27 +179,7 @@
                                 HorizontalAlignment="Center"
                                 Background="LightGray"
                                 Content="Add term"
-                                Foreground="Black">
-
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="LightSlateGray" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
+                                Foreground="Black" />
                             <!--  propbably dataGrid will be better to use  -->
                             <ListBox
                                 Grid.Row="3"
@@ -224,79 +238,24 @@
             <Button
                 Grid.Column="0"
                 Margin="5"
-                Background="SteelBlue"
                 Content="Previous"
                 Foreground="White"
-                IsEnabled="False">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="LightSlateGray" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
+                IsEnabled="False"
+                Style="{StaticResource ButtonControlStyle}" />
             <Button
                 Grid.Column="1"
                 Margin="5"
-                Background="SteelBlue"
+                Command="{Binding NextTabControlItemCommand}"
+                CommandParameter="{Binding}"
                 Content="Next"
-                Foreground="White">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="LightSlateGray" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
+                Foreground="White"
+                Style="{StaticResource ButtonControlStyle}" />
             <Button
                 Grid.Column="2"
                 Margin="5"
-                Background="SteelBlue"
                 Content="Cancel"
-                Foreground="White">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="LightSlateGray" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
+                Foreground="White"
+                Style="{StaticResource ButtonControlStyle}" />
         </Grid>
 
     </DockPanel>

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ExpertSystem.Model
 {
-    public class FuzzyVariable
+    public class FuzzyVariableModel
     {
         private string _name;
-        private List<Term> _terms;
+        private List<TermModel> _terms;
         private string _comment;
         private VariableType _type;
         private int _minValue;
@@ -22,19 +22,19 @@ namespace ExpertSystem.Model
             set { if (string.Compare(_name, value, true) != 0) _name = value; }
         }
 
-        public List<Term> Terms
+        public List<TermModel> Terms
         {
             get { return _terms; }
             set { _terms = value; }
         }
 
-        public void AddTerm(Term newTerm)
+        public void AddTerm(TermModel newTerm)
         {
             if(_terms != null)
                 _terms.Add(newTerm);
             else
             {
-                _terms = new List<Term>();
+                _terms = new List<TermModel>();
                 _terms.Add(newTerm);
             }
         }
@@ -81,14 +81,14 @@ namespace ExpertSystem.Model
             set { if (_minValue != value && _minValue <= _maxValue) { _minValue = value; Console.WriteLine("set min: " + _minValue); } }
         }
 
-        public FuzzyVariable() { }
+        public FuzzyVariableModel() { }
         
-        public FuzzyVariable(string name)
+        public FuzzyVariableModel(string name)
         {
             _name = name;
         }
 
-        public FuzzyVariable(string name, List<Term> terms)
+        public FuzzyVariableModel(string name, List<TermModel> terms)
         {
             _name = name;
             _terms = terms;

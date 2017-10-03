@@ -55,11 +55,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Infrastructure\RelayCommand.cs" />
-    <Compile Include="Model\Enumerations.cs" />
-    <Compile Include="Model\FuzzyVariable.cs" />
-    <Compile Include="Model\MMBF_Functions\I_MMBF_Function.cs" />
-    <Compile Include="Model\MMBF_Functions\TriangleFunction.cs" />
-    <Compile Include="Model\Term.cs" />
+    <Compile Include="Model\EnumerationsModel.cs" />
+    <Compile Include="Model\FuzzyVariableModel.cs" />
+    <Compile Include="Model\MembershipFunctionsModel\IMembershipFunction.cs" />
+    <Compile Include="Model\MembershipFunctionsModel\TriangleFunction.cs" />
+    <Compile Include="Model\TermModel.cs" />
+    <Compile Include="ViewModel\CreateVariableViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="View\RuleBlockWizardView.xaml.cs">
       <DependentUpon>RuleBlockWizardView.xaml</DependentUpon>

@@ -87,7 +87,7 @@
 
             <Canvas.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Add Variable" />
+                    <MenuItem Command="{Binding OpenCreatingVariableWindowCommand}" Header="Add Variable" />
                     <MenuItem Header="Add Rule Block" />
                     <MenuItem Header="Add Text" />
                 </ContextMenu>

@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace ExpertSystem.Model
 {
-    public class Term
+    public class TermModel
     {
         private string _nameTerm;
         private TriangleFunction _function; 

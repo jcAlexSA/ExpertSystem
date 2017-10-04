@@ -12,6 +12,22 @@ namespace ExpertSystem.ViewModel
 {
     public class CreateVariableViewModel : ViewModelBase
     {
+        #region Active Selected Item on TabControl
+        int _selectedTabItemIndex = 0;
+        public int SelectedTabItemIndex
+        {
+            get
+            {                
+                return _selectedTabItemIndex;
+            }
+            set
+            {
+                _selectedTabItemIndex = value;
+                OnPropertyChanged("SelectedTabItemIndex");
+            }
+        }
+        #endregion
+
         FuzzyVariableModel _newFuzzyVariable;
         public FuzzyVariableModel NewFuzzyVariable
         {
@@ -28,14 +44,15 @@ namespace ExpertSystem.ViewModel
             }
         }
 
+
+        #region Next Button Click
         RelayCommand _nextTabControlItemCommand;
         public ICommand NextTabControlItemCommand
         {
             get
             {
                 if (_nextTabControlItemCommand == null)
-                    _nextTabControlItemCommand = new RelayCommand(
-                        ExecuteNextTabControlCommand,
+                    _nextTabControlItemCommand = new RelayCommand(ExecuteNextTabControlCommand,
                         CanExecuteNextTabControlCommand);
                 return _nextTabControlItemCommand;
             }
@@ -48,7 +65,51 @@ namespace ExpertSystem.ViewModel
 
         private void ExecuteNextTabControlCommand(object obj)
         {
-            
+            if (_selectedTabItemIndex == 2)
+                CloseWindow();
+            else
+                SelectedTabItemIndex = ++_selectedTabItemIndex;
+        }
+        #endregion
+
+
+        #region Previous Button Click Command
+        RelayCommand _previousTabControlItemCommand;
+        public ICommand PreviousTabControlItemCommand
+        {
+            get
+            {
+                if (_previousTabControlItemCommand == null)
+                    _previousTabControlItemCommand = new RelayCommand(ExecutePreviousTabControlCommand, 
+                        (obj) => { return _selectedTabItemIndex > 0; });
+                return _previousTabControlItemCommand;
+            }
+        }
+
+        private void ExecutePreviousTabControlCommand(object obj)
+        {
+            SelectedTabItemIndex = --_selectedTabItemIndex;
+        }
+        #endregion
+
+
+        #region Close Command
+        RelayCommand _closeWindowCommand;
+        public ICommand CloseWindowCommand
+        {
+            get
+            {
+                if (_closeWindowCommand == null)
+                    _closeWindowCommand = new RelayCommand((obj) => CloseWindow(), (obj) => true);  //always can close window
+                return _closeWindowCommand;
+            }
+        }
+        #endregion
+
+
+        private void CloseWindow()
+        {
+            App.Current.Windows.OfType<System.Windows.Window>().SingleOrDefault(x => x.IsActive).Close();
         }
     }
 }

@@ -17,9 +17,9 @@ namespace ExpertSystem.View
     /// <summary>
     /// Interaction logic for RuleBlockWizard.xaml
     /// </summary>
-    public partial class RuleBlockWizard : Window
+    public partial class RuleBlockWizardView : Window
     {
-        public RuleBlockWizard()
+        public RuleBlockWizardView()
         {
             InitializeComponent();
         }

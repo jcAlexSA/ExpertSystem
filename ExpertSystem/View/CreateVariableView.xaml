@@ -25,6 +25,7 @@
         <!--  textBox  -->
         <Style TargetType="TextBox">
             <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Height" Value="25" />
             <Setter Property="Background" Value="Lavender" />
         </Style>
         <!--  Buttons  -->
@@ -47,7 +48,7 @@
                     <Setter Property="Background" Value="CornflowerBlue" />
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="LightSteelBlue" />
+                    <Setter Property="Background" Value="#3B53D9" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -56,16 +57,21 @@
 
     <DockPanel>
 
-        <TabControl Name="TabControlWizard" DockPanel.Dock="Top">
+        <TabControl
+            Name="TabControlWizard"
+            DockPanel.Dock="Top"
+            SelectedIndex="{Binding SelectedTabItemIndex, Mode=TwoWay}">
             <!--  first step (tab)  -->
             <TabItem
                 Width="100"
                 Background="LightGray"
-                Header="First step">
+                Header="First step"
+                TabIndex="0">
                 <StackPanel>
                     <GroupBox Margin="15,0" Header="Define Linguistic Variable">
                         <TextBlock
                             Margin="5"
+                            FontSize="12"
                             Text="The Linguistic Variables Wizard will help you to create a linguistic variable with an initial set of terms and membership functions. In this step you specify name, color and type of the variable."
                             TextAlignment="Justify"
                             TextWrapping="WrapWithOverflow" />
@@ -111,12 +117,14 @@
             <TabItem
                 Width="100"
                 Background="LightGray"
-                Header="Second step">
+                Header="Second step"
+                TabIndex="1">
                 <!--  second step (tab)  -->
                 <StackPanel>
-                    <GroupBox Header="MBF Definition">
+                    <GroupBox Margin="15,0" Header="MBF Definition">
                         <TextBlock
                             Margin="5"
+                            FontSize="11"
                             Text="In this step you specify the number of terms, that determines the choice of term names and the membership function definitions for the set of terms to be created."
                             TextAlignment="Justify"
                             TextWrapping="Wrap" />
@@ -137,7 +145,10 @@
 
 
 
-                    <GroupBox BorderBrush="LightSlateGray" Header="Add term">
+                    <GroupBox
+                        Margin="20,0"
+                        BorderBrush="SteelBlue"
+                        Header="Add term">
                         <Grid Margin="5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="0.5*" />
@@ -158,33 +169,37 @@
                                 Margin="2"
                                 HorizontalAlignment="Center"
                                 LastChildFill="False">
-                                <TextBlock MinWidth="50" Text="Low" />
-                                <TextBox MinWidth="80" />
+                                <TextBlock MinWidth="40" Text="Low" />
+                                <TextBox MinWidth="60" />
                                 <TextBlock
-                                    MinWidth="50"
+                                    MinWidth="40"
                                     Margin="10,0,0,0"
                                     Text="Mid" />
-                                <TextBox MinWidth="80" />
+                                <TextBox MinWidth="60" />
                                 <TextBlock
-                                    MinWidth="50"
+                                    MinWidth="40"
                                     Margin="10,0,0,0"
                                     Text="High" />
-                                <TextBox MinWidth="80" />
+                                <TextBox MinWidth="60" />
+                                <Button
+                                    Grid.Row="2"
+                                    Grid.ColumnSpan="2"
+                                    Width="25"
+                                    Height="25"
+                                    Margin="20,3,3,3"
+                                    Background="SlateGray"
+                                    Content="+"
+                                    FontSize="15"
+                                    Foreground="White"
+                                    ToolTip="Add term" />
                             </DockPanel>
-                            <Button
-                                Grid.Row="2"
-                                Grid.ColumnSpan="2"
-                                MinWidth="200"
-                                Margin="0,3"
-                                HorizontalAlignment="Center"
-                                Background="LightGray"
-                                Content="Add term"
-                                Foreground="Black" />
                             <!--  propbably dataGrid will be better to use  -->
-                            <ListBox
+                            <ScrollViewer
                                 Grid.Row="3"
                                 Grid.ColumnSpan="2"
-                                Height="50" />
+                                VerticalScrollBarVisibility="Auto">
+                                <ListBox Height="60" Background="#F4F4FD" />
+                            </ScrollViewer>
                         </Grid>
                     </GroupBox>
                 </StackPanel>
@@ -194,14 +209,16 @@
             <TabItem
                 Width="100"
                 Background="LightGray"
-                Header="Third step">
+                FontSize="11"
+                Header="Third step"
+                TabIndex="2">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <GroupBox Height="100" Header="Comment for Variable">
+                    <GroupBox Margin="15,0" Header="Comment for Variable">
                         <TextBlock
                             Margin="5"
                             Text="The Linguistic Variables Wizard will help you to create a linguistic variable with an initial set of terms and membership functions. In this step you specify name, color and type of the variable."
@@ -211,14 +228,22 @@
 
                     <GroupBox
                         Grid.Row="1"
-                        Height="155"
-                        BorderBrush="LightSlateGray"
+                        Height="170"
+                        Margin="20,10"
+                        BorderBrush="SlateBlue"
                         Header="Comment">
-                        <TextBox
-                            Margin="2"
-                            AcceptsReturn="True"
-                            TextAlignment="Justify"
-                            TextWrapping="Wrap" />
+                        <ScrollViewer
+                            Height="160"
+                            VerticalContentAlignment="Top"
+                            VerticalScrollBarVisibility="Auto">
+                            <TextBox
+                                Height="120"
+                                Margin="10"
+                                VerticalContentAlignment="Top"
+                                AcceptsReturn="True"
+                                TextAlignment="Justify"
+                                TextWrapping="Wrap" />
+                        </ScrollViewer>
                     </GroupBox>
                 </Grid>
             </TabItem>
@@ -238,21 +263,21 @@
             <Button
                 Grid.Column="0"
                 Margin="5"
+                Command="{Binding PreviousTabControlItemCommand}"
                 Content="Previous"
                 Foreground="White"
-                IsEnabled="False"
                 Style="{StaticResource ButtonControlStyle}" />
             <Button
                 Grid.Column="1"
                 Margin="5"
                 Command="{Binding NextTabControlItemCommand}"
-                CommandParameter="{Binding}"
                 Content="Next"
                 Foreground="White"
                 Style="{StaticResource ButtonControlStyle}" />
             <Button
                 Grid.Column="2"
                 Margin="5"
+                Command="{Binding CloseWindowCommand}"
                 Content="Cancel"
                 Foreground="White"
                 Style="{StaticResource ButtonControlStyle}" />

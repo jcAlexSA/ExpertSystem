@@ -58,8 +58,14 @@
                     ToolTip="(Shift+Ctrl+S)" />-->
             </MenuItem>
             <MenuItem Header="Edit">
-                <MenuItem Width="Auto" Header="New Variable..." />
-                <MenuItem Width="Auto" Header="New Rule Block..." />
+                <MenuItem
+                    Width="Auto"
+                    Command="{Binding OpenCreatingVariableWindowCommand}"
+                    Header="New Variable..." />
+                <MenuItem
+                    Width="Auto"
+                    Command="{Binding OpenCreatingRuleBlockWindow}"
+                    Header="New Rule Block..." />
                 <MenuItem Width="Auto" Header="New Text..." />
             </MenuItem>
             <MenuItem Header="Tools">
@@ -88,7 +94,7 @@
             <Canvas.ContextMenu>
                 <ContextMenu>
                     <MenuItem Command="{Binding OpenCreatingVariableWindowCommand}" Header="Add Variable" />
-                    <MenuItem Header="Add Rule Block" />
+                    <MenuItem Command="{Binding OpenCreatingRuleBlockWindow}" Header="Add Rule Block" />
                     <MenuItem Header="Add Text" />
                 </ContextMenu>
             </Canvas.ContextMenu>

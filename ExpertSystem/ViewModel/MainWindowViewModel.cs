@@ -11,7 +11,7 @@ namespace ExpertSystem.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
-
+        #region Create Variable Window Command
         RelayCommand _openCreatingVariableWindowCommnad;
         public ICommand OpenCreatingVariableWindowCommand
         {
@@ -19,22 +19,28 @@ namespace ExpertSystem.ViewModel
             {
                 if (_openCreatingVariableWindowCommnad == null)
                     _openCreatingVariableWindowCommnad = new RelayCommand(
-                        ExecuteOpenCreateVariableWindowCommand
-                        , CanExecuteOpenCreateVariableWindowCommand);
+                        (obj) => OpenWindow(new View.CreateVariableView())      //open Creation Variable Window
+                        , (obj) => { return true; });
                 return _openCreatingVariableWindowCommnad;
             }
         }
+        #endregion
 
-        private bool CanExecuteOpenCreateVariableWindowCommand(object obj)
+
+        #region Open Window Rule Block Creation
+        RelayCommand _openCreatingRuleBlockWindow;
+        public ICommand OpenCreatingRuleBlockWindow
         {
-            return true;
+            get
+            {
+                if (_openCreatingRuleBlockWindow == null)
+                    _openCreatingRuleBlockWindow = new RelayCommand(
+                        (obj) => OpenWindow(new View.RuleBlockWizardView())     //open Creation Rule Block Window
+                        , (obj) => { return true; });
+                return _openCreatingRuleBlockWindow;
+            }
         }
 
-        private void ExecuteOpenCreateVariableWindowCommand(object obj)
-        {
-            View.CreateVariableView createVarWindow = new View.CreateVariableView();
-            createVarWindow.Owner = App.Current.MainWindow;
-            createVarWindow.ShowDialog();
-        }
+        #endregion
     }
 }

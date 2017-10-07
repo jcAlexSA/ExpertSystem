@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExpertSystem.Model.MMBF_Functions
 {
-    public interface I_MMBF_Function
+    public interface IMembershipFunction
     {
     }
 }

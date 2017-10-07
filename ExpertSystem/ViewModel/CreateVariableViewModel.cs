@@ -107,8 +107,49 @@ namespace ExpertSystem.ViewModel
         #endregion
 
 
+        TermModel _currentTerm;
+        public TermModel CurrentTerm
+        {
+            get
+            {
+                if (_currentTerm == null)
+                    _currentTerm = new TermModel();
+                return _currentTerm;
+            }
+            set
+            {
+                _currentTerm = value;
+                OnPropertyChanged("CurrentTerm");
+            }
+        }
+
+
+        RelayCommand _addTerm;
+        public ICommand AddTermCommand
+        {
+            get
+            {
+                if (_addTerm == null)
+                    _addTerm = new RelayCommand(ExecuteAddTermCommand, CanExecuteAddTermCommand);
+                return _addTerm;
+            }
+        }
+
+
+        private bool CanExecuteAddTermCommand(object obj)
+        {
+            return !string.IsNullOrEmpty(_currentTerm?.NameTerm); //todo another
+        }
+
+        private void ExecuteAddTermCommand(object obj)
+        {
+            _newFuzzyVariable.Terms.Add(_currentTerm);
+            CurrentTerm = null;
+        }
+
         private void CloseWindow()
         {
+            
             App.Current.Windows.OfType<System.Windows.Window>().SingleOrDefault(x => x.IsActive).Close();
         }
     }

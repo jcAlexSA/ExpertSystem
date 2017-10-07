@@ -11,23 +11,38 @@ namespace ExpertSystem.Model
     public class TermModel
     {
         private string _nameTerm;
-        private TriangleFunction _function; 
+
+        private IMembershipFunction _function;
 
         public string NameTerm
         {
-            get { return _nameTerm; }
-            set { _nameTerm = value; }
+            get
+            {
+                return _nameTerm;
+            }
+            set
+            {
+                _nameTerm = value;
+            }
         }
 
-        public TriangleFunction Function
+        public IMembershipFunction Function
         {
-            get { return _function; }
-            set { _function = value; }
+            get
+            {
+                if (_function == null)
+                    _function = new TriangleFunction();
+                return _function;
+            }
+            set
+            {
+                _function = value;
+            }
         }
-        public override string ToString()
+
+        public TermModel()
         {
-            return string.Format("Term:{0}; Type Function:{1}; Low:{2}; Mid{3}; High:{4}", 
-                NameTerm, Function.Name, Function.Low, Function.Mid, Function.High);
+            _function = new TriangleFunction();
         }
         
     }        

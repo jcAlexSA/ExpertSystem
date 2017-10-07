@@ -38,7 +38,7 @@ namespace MVVM_Sample.ViewModel
         protected void OpenWindow(object obj)
         {
             System.Windows.Window creationWindow = obj as System.Windows.Window;
-            creationWindow.Owner = ExpertSystem.App.Current.MainWindow;
+            creationWindow.Owner = System.Windows.Application.Current.MainWindow;
             creationWindow.ShowDialog();
         }
     }

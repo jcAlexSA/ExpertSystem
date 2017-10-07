@@ -1,7 +1,9 @@
-﻿using MVVM_Sample.Infrastructure;
+﻿using ExpertSystem.Model;
+using MVVM_Sample.Infrastructure;
 using MVVM_Sample.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,24 @@ namespace ExpertSystem.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        ObservableCollection<FuzzyVariableModel> _fuzzyVariables;
+
+        public ObservableCollection<FuzzyVariableModel> FuzzyVariables
+        {
+            get
+            {
+                if (_fuzzyVariables == null)
+                    _fuzzyVariables = new ObservableCollection<FuzzyVariableModel>();
+                return _fuzzyVariables;
+            }
+            set
+            {
+                _fuzzyVariables = value;
+                OnPropertyChanged("FuzzyVariables");
+            }
+        }
+
+
         #region Create Variable Window Command
         RelayCommand _openCreatingVariableWindowCommnad;
         public ICommand OpenCreatingVariableWindowCommand

@@ -57,6 +57,8 @@
     <Compile Include="Infrastructure\RelayCommand.cs" />
     <Compile Include="Model\EnumerationsModel.cs" />
     <Compile Include="Model\FuzzyVariableModel.cs" />
+    <Compile Include="Model\MembershipFunctionsModel\CalculateModel\ICalculateMembershipFunctionModel.cs" />
+    <Compile Include="Model\MembershipFunctionsModel\CalculateModel\TriangleCalculateFunctionModel.cs" />
     <Compile Include="Model\MembershipFunctionsModel\IMembershipFunction.cs" />
     <Compile Include="Model\MembershipFunctionsModel\TriangleFunction.cs" />
     <Compile Include="Model\TermModel.cs" />

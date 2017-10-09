@@ -147,10 +147,5 @@ namespace ExpertSystem.ViewModel
             CurrentTerm = null;
         }
 
-        private void CloseWindow()
-        {
-            
-            App.Current.Windows.OfType<System.Windows.Window>().SingleOrDefault(x => x.IsActive).Close();
-        }
     }
 }

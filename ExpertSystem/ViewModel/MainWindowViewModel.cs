@@ -30,6 +30,21 @@ namespace ExpertSystem.ViewModel
             }
         }
 
+        ObservableCollection<RuleBlockModel> _ruleBlocks;
+        public ObservableCollection<RuleBlockModel> RuleBlocks
+        {
+            get
+            {
+                if (_ruleBlocks == null)
+                    _ruleBlocks = new ObservableCollection<RuleBlockModel>();
+                return _ruleBlocks;
+            }
+            set
+            {
+                _ruleBlocks = value;
+                OnPropertyChanged("RuleBlocks");
+            }
+        }
 
         #region Create Variable Window Command
         RelayCommand _openCreatingVariableWindowCommnad;
@@ -55,7 +70,7 @@ namespace ExpertSystem.ViewModel
             {
                 if (_openCreatingRuleBlockWindow == null)
                     _openCreatingRuleBlockWindow = new RelayCommand(
-                        (obj) => OpenWindow(new View.RuleBlockWizardView())     //open Creation Rule Block Window
+                        (obj) => OpenWindow(new View.RuleBlockView())     //open Creation Rule Block Window
                         , (obj) => { return true; });
                 return _openCreatingRuleBlockWindow;
             }

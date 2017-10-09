@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExpertSystem;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -41,5 +42,11 @@ namespace MVVM_Sample.ViewModel
             creationWindow.Owner = System.Windows.Application.Current.MainWindow;
             creationWindow.ShowDialog();
         }
+
+        protected void CloseWindow()
+        {
+            App.Current.Windows.OfType<System.Windows.Window>().SingleOrDefault(x => x.IsActive).Close();
+        }
+    
     }
 }

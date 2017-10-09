@@ -61,11 +61,13 @@
     <Compile Include="Model\MembershipFunctionsModel\CalculateModel\TriangleCalculateFunctionModel.cs" />
     <Compile Include="Model\MembershipFunctionsModel\IMembershipFunction.cs" />
     <Compile Include="Model\MembershipFunctionsModel\TriangleFunction.cs" />
+    <Compile Include="Model\RuleBlockModel.cs" />
     <Compile Include="Model\TermModel.cs" />
+    <Compile Include="ViewModel\CreateRuleBlockViewModel.cs" />
     <Compile Include="ViewModel\CreateVariableViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
-    <Compile Include="View\RuleBlockWizardView.xaml.cs">
-      <DependentUpon>RuleBlockWizardView.xaml</DependentUpon>
+    <Compile Include="View\RuleBlockView.xaml.cs">
+      <DependentUpon>RuleBlockView.xaml</DependentUpon>
     </Compile>
     <Compile Include="VariableEditor.xaml.cs">
       <DependentUpon>VariableEditor.xaml</DependentUpon>
@@ -90,7 +92,7 @@
       <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\RuleBlockWizardView.xaml">
+    <Page Include="View\RuleBlockView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -77,5 +77,34 @@ namespace ExpertSystem.ViewModel
         }
 
         #endregion
+
+        #region Mouse Coordinate Manager
+
+        MouseCoordinate _mouseCoordinate;
+
+        RelayCommand _mouseClickedCoordinateCommand;
+        public ICommand MouseClickedCoordinateCommand
+        {
+            get
+            {
+                if (_mouseClickedCoordinateCommand == null)
+                    _mouseClickedCoordinateCommand = new RelayCommand(ExecuteMouseClickedCommand,
+                        CanExecuteClickedCommand);
+                return _mouseClickedCoordinateCommand;
+            }
+        }
+
+        private bool CanExecuteClickedCommand(object obj)
+        {
+            return _mouseClickedCoordinateCommand != null;
+        }
+
+        private void ExecuteMouseClickedCommand(object obj)
+        {
+            _mouseCoordinate = new MouseCoordinate();
+        }
+
+
+        #endregion
     }
 }

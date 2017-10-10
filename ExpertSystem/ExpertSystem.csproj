@@ -61,6 +61,7 @@
     <Compile Include="Model\MembershipFunctionsModel\CalculateModel\TriangleCalculateFunctionModel.cs" />
     <Compile Include="Model\MembershipFunctionsModel\IMembershipFunction.cs" />
     <Compile Include="Model\MembershipFunctionsModel\TriangleFunction.cs" />
+    <Compile Include="Model\MouseCoordinate.cs" />
     <Compile Include="Model\RuleBlockModel.cs" />
     <Compile Include="Model\TermModel.cs" />
     <Compile Include="ViewModel\CreateRuleBlockViewModel.cs" />

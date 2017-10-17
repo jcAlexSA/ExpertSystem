@@ -36,26 +36,31 @@
             VerticalAlignment="Top"
             Background="#C1CDCD">
             <MenuItem Width="Auto" Header="File">
-                <!--<MenuItem
+                <MenuItem
                     Width="Auto"
                     Header="New"
+                    IsEnabled="False"
                     ToolTip="(Ctrl+N)" />
                 <MenuItem
                     Width="Auto"
                     Header="Open"
+                    IsEnabled="False"
                     ToolTip="(Ctrl+O)" />
                 <MenuItem
                     Width="Auto"
                     Header="Save"
+                    IsEnabled="False"
                     ToolTip="(Ctrl+S)" />
                 <MenuItem
                     Width="Auto"
                     Header="Save as..."
+                    IsEnabled="False"
                     ToolTip="(Shift+Ctrl+S)" />
                 <MenuItem
                     Width="Auto"
                     Header="Close"
-                    ToolTip="(Shift+Ctrl+S)" />-->
+                    IsEnabled="False"
+                    ToolTip="(Shift+Ctrl+S)" />
             </MenuItem>
             <MenuItem Header="Edit">
                 <MenuItem
@@ -66,17 +71,20 @@
                     Width="Auto"
                     Command="{Binding OpenCreatingRuleBlockWindow}"
                     Header="New Rule Block..." />
-                <MenuItem Width="Auto" Header="New Text..." />
+                <MenuItem
+                    Width="Auto"
+                    Header="New Text..."
+                    IsEnabled="False" />
             </MenuItem>
             <MenuItem Header="Tools">
-                <MenuItem Header="Print to code on C++" />
-                <MenuItem Header="Print to code on C#" />
-                <MenuItem Header="Print to code on Java" />
-                <MenuItem Header="Print to code on PHP" />
+                <MenuItem Header="Print to code on C++" IsEnabled="False" />
+                <MenuItem Header="Print to code on C#" IsEnabled="False" />
+                <MenuItem Header="Print to code on Java" IsEnabled="False" />
+                <MenuItem Header="Print to code on PHP" IsEnabled="False" />
             </MenuItem>
-            <MenuItem Header="View" />
-            <MenuItem Header="Window" />
-            <MenuItem Header="Help" />
+            <MenuItem Header="View" IsEnabled="False" />
+            <MenuItem Header="Window" IsEnabled="False" />
+            <MenuItem Header="Help" IsEnabled="False" />
         </Menu>
 
         <Canvas

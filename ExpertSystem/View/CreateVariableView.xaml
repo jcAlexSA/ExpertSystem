@@ -197,7 +197,7 @@
                                     Foreground="White"
                                     ToolTip="Add term" />
                             </DockPanel>
-                            <!--  propbably dataGrid will be better to use  -->
+                            <!--  propbably DATAGRID will be better to use!!!!!!!!!!!  -->
                             <ScrollViewer
                                 Grid.Row="3"
                                 Grid.ColumnSpan="2"

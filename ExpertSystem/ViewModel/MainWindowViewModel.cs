@@ -101,7 +101,7 @@ namespace ExpertSystem.ViewModel
 
         private void ExecuteMouseClickedCommand(object obj)
         {
-            _mouseCoordinate = new MouseCoordinate();
+          //  _mouseCoordinate = new MouseCoordinate();
         }
 
 

@@ -54,10 +54,23 @@ namespace ExpertSystem.ViewModel
             {
                 if (_openCreatingVariableWindowCommnad == null)
                     _openCreatingVariableWindowCommnad = new RelayCommand(
-                        (obj) => OpenWindow(new View.CreateVariableView())      //open Creation Variable Window
+                        ExecuteOpenCreateVaribleWindowCommand      //open Creation Variable Window
                         , (obj) => { return true; });
                 return _openCreatingVariableWindowCommnad;
             }
+        }
+
+        private void ExecuteOpenCreateVaribleWindowCommand(object obj)
+        {
+            CreateVariableViewModel createVarWindow = new CreateVariableViewModel();
+            createVarWindow.OnFuzzyVariableCreate += OnFuzzyVariableAdd;
+
+            OpenWindow(new View.CreateVariableView());
+        }
+
+        private void OnFuzzyVariableAdd(FuzzyVariableModel newFuzzyVariable)
+        {
+            Console.WriteLine(newFuzzyVariable.Name);
         }
         #endregion
 
@@ -77,6 +90,7 @@ namespace ExpertSystem.ViewModel
         }
 
         #endregion
+
 
         #region Mouse Coordinate Manager
 

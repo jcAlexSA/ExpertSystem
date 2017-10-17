@@ -12,6 +12,10 @@ namespace ExpertSystem.ViewModel
 {
     public class CreateVariableViewModel : ViewModelBase
     {
+        public delegate void SendNewVariableEventHandler(FuzzyVariableModel newFuzzyVariable);
+
+        public event SendNewVariableEventHandler OnFuzzyVariableCreate;
+
         #region Active Selected Item on TabControl
         int _selectedTabItemIndex = 0;
         public int SelectedTabItemIndex
@@ -27,6 +31,8 @@ namespace ExpertSystem.ViewModel
             }
         }
         #endregion
+
+        #region Constructor
 
         FuzzyVariableModel _newFuzzyVariable;
         public FuzzyVariableModel NewFuzzyVariable
@@ -44,7 +50,8 @@ namespace ExpertSystem.ViewModel
             }
         }
 
-
+        #endregion
+        
         #region Next Button Click
         RelayCommand _nextTabControlItemCommand;
         public ICommand NextTabControlItemCommand
@@ -66,13 +73,17 @@ namespace ExpertSystem.ViewModel
         private void ExecuteNextTabControlCommand(object obj)
         {
             if (_selectedTabItemIndex == 2)
+            {
+                if(OnFuzzyVariableCreate != null)
+                    OnFuzzyVariableCreate(_newFuzzyVariable);
+
                 CloseWindow();
+            }
             else
                 SelectedTabItemIndex = ++_selectedTabItemIndex;
         }
         #endregion
-
-
+        
         #region Previous Button Click Command
         RelayCommand _previousTabControlItemCommand;
         public ICommand PreviousTabControlItemCommand
@@ -91,8 +102,7 @@ namespace ExpertSystem.ViewModel
             SelectedTabItemIndex = --_selectedTabItemIndex;
         }
         #endregion
-
-
+        
         #region Close Command
         RelayCommand _closeWindowCommand;
         public ICommand CloseWindowCommand

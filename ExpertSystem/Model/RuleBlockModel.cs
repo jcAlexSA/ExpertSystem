@@ -34,22 +34,20 @@ namespace ExpertSystem.Model
         }
 
         
-        public RuleBlockModel()
+        public RuleBlockModel() : this(null, null, null)
         {
-
         }
 
-        public RuleBlockModel(string name)
+        public RuleBlockModel(string name) : this(name, null, null)
         {
-            _name = name;
         }
 
         public RuleBlockModel(string name, ObservableCollection<FuzzyVariableModel> inputVariables,
             ObservableCollection<FuzzyVariableModel> outputVariables)
         {
             _name = name;
-            _inputVariables = inputVariables;
-            _outputVariables = outputVariables;
+            _inputVariables = inputVariables ?? new ObservableCollection<FuzzyVariableModel>();
+            _outputVariables = outputVariables ?? new ObservableCollection<FuzzyVariableModel>();
         }
 
         public override bool Equals(object obj)

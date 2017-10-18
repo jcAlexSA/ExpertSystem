@@ -126,7 +126,7 @@
 
                 <TextBlock Text="Variables: " />
                 <ScrollViewer Grid.Row="1" Margin="5,0">
-                    <ListBox ItemsSource="{Binding Path=SendedFuzzyVariables}">
+                    <ListBox Name="ReceivedVariblesListBox" ItemsSource="{Binding Path=SendedFuzzyVariables}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}" />
@@ -136,8 +136,16 @@
                 </ScrollViewer>
 
                 <StackPanel Grid.RowSpan="3" Grid.Column="1">
-                    <Button Content="Input" Style="{StaticResource ButtonVariableControlStyle}" />
-                    <Button Content="Output" Style="{StaticResource ButtonVariableControlStyle}" />
+                    <Button
+                        Command="{Binding ToInputListCommand}"
+                        CommandParameter="{Binding ElementName=ReceivedVariblesListBox, Path=SelectedIndex}"
+                        Content="Input"
+                        Style="{StaticResource ButtonVariableControlStyle}" />
+                    <Button
+                        Command="{Binding ToOutputListCommand}"
+                        CommandParameter="{Binding ElementName=ReceivedVariblesListBox, Path=SelectedIndex}"
+                        Content="Output"
+                        Style="{StaticResource ButtonVariableControlStyle}" />
                     <Button Content="Remove" Style="{StaticResource ButtonVariableControlStyle}" />
                 </StackPanel>
 

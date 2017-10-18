@@ -17,22 +17,18 @@ namespace ExpertSystem.ViewModel
 
         public event SendedVariablesAndRuleBlock OnSendedVariableAndRuleBlockEvent;
 
+        #region Constructors
+        public CreateRuleBlockViewModel() : this(null, null) {}
 
-        public CreateRuleBlockViewModel()
-        {
-
-        }
-
-        public CreateRuleBlockViewModel(ObservableCollection<FuzzyVariableModel> sendedFuzzyVariables)
-        {
-            _sendedFuzzyVariables = sendedFuzzyVariables;
-        }
+        public CreateRuleBlockViewModel(ObservableCollection<FuzzyVariableModel> sendedVariables) : this(sendedVariables, null) {}
 
         public CreateRuleBlockViewModel(ObservableCollection<FuzzyVariableModel> sendedFuzzyVariables, RuleBlockModel ruleBlock)
         {
             _sendedFuzzyVariables = sendedFuzzyVariables;
             _ruleBlock = ruleBlock;
         }
+        #endregion
+
 
         #region Sended Fuzzy Variable
         private ObservableCollection<FuzzyVariableModel> _sendedFuzzyVariables;
@@ -51,6 +47,7 @@ namespace ExpertSystem.ViewModel
             }
         }
         #endregion
+
 
         #region Current Rule Block
         private RuleBlockModel _ruleBlock;
@@ -71,7 +68,7 @@ namespace ExpertSystem.ViewModel
         }
         #endregion
 
-
+        
         #region Add Rule Block
         RelayCommand _addRuleBlockCommand;
         public ICommand AddRuleBlockCommand
@@ -98,7 +95,7 @@ namespace ExpertSystem.ViewModel
         }
         #endregion
 
-
+        
         #region Close Window Command
         RelayCommand _closeCommand;
         public ICommand CloseCommand
@@ -111,5 +108,60 @@ namespace ExpertSystem.ViewModel
             }
         }
         #endregion
+
+
+        #region Pass Selected Item To Input Variables Command
+        RelayCommand _toInputListCommand;
+        public ICommand ToInputListCommand
+        {
+            get
+            {
+                if (_toInputListCommand == null)
+                    _toInputListCommand = new RelayCommand(ExecutePassSendedVariableToInputListVariables,
+                        (obj) => (_sendedFuzzyVariables?.Count > 0));
+                return _toInputListCommand;
+            }
+        }
+
+        private void ExecutePassSendedVariableToInputListVariables(object obj)
+        {
+            if (obj == null)
+                return;
+
+            SendDataFromOneCollectionToSecond(_sendedFuzzyVariables, _ruleBlock.InputVariables, (int)obj);
+            _sendedFuzzyVariables.RemoveAt((int)obj);
+        }
+        #endregion
+
+        #region Pass Selected Item To Output Variables Command
+        RelayCommand _toOutputListCommand;
+        public ICommand ToOutputListCommand
+        {
+            get
+            {
+                if (_toOutputListCommand == null)
+                    _toOutputListCommand = new RelayCommand(ExecutePassSendedVariableToOutputListVariables,
+                        (obj) => (_sendedFuzzyVariables?.Count > 0));
+                return _toOutputListCommand;
+            }
+        }
+
+        private void ExecutePassSendedVariableToOutputListVariables(object obj)
+        {
+            if (obj == null)
+                return;
+
+            SendDataFromOneCollectionToSecond(_sendedFuzzyVariables, _ruleBlock.OutputVatiables, (int)obj);
+            _sendedFuzzyVariables.RemoveAt((int)obj);      
+        }
+        #endregion
+
+        private void SendDataFromOneCollectionToSecond(ObservableCollection<FuzzyVariableModel> copyFromVariables, ObservableCollection<FuzzyVariableModel> recipientVariables, int indexCopyElement)
+        {
+            if (indexCopyElement < 0)
+                return;
+
+            recipientVariables.Add(copyFromVariables.ElementAt(indexCopyElement));
+        }
     }
 }

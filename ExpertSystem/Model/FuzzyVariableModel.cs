@@ -121,9 +121,11 @@ namespace ExpertSystem.Model
 
         public override bool Equals(object obj)
         {
-            if (obj == null)
-                return false;
-            return (obj as FuzzyVariableModel).Name.Equals(this.Name);
+            return false;
+            //if (obj == null)
+            //    return false;
+
+            //return string.Equals((obj as FuzzyVariableModel).Name, this.Name);
         }
     }
 }

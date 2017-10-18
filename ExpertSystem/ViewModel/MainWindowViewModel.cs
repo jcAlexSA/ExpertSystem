@@ -13,6 +13,7 @@ namespace ExpertSystem.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        #region Fuzzy Variables List
         ObservableCollection<FuzzyVariableModel> _fuzzyVariables;
 
         public ObservableCollection<FuzzyVariableModel> FuzzyVariables
@@ -20,16 +21,29 @@ namespace ExpertSystem.ViewModel
             get
             {
                 if (_fuzzyVariables == null)
-                    _fuzzyVariables = new ObservableCollection<FuzzyVariableModel>();
+                    _fuzzyVariables = new ObservableCollection<FuzzyVariableModel>()
+                    {
+                        new FuzzyVariableModel() { Name = "var01", Type = 0},
+                        new FuzzyVariableModel() { Name = "var02", Type = 0 },
+                        new FuzzyVariableModel() { Name = "var13", Type = 1 },
+                        new FuzzyVariableModel() { Name = "var14", Type = 1 },
+                        new FuzzyVariableModel() { Name = "var25", Type = 2 },
+                        new FuzzyVariableModel() { Name = "var26", Type = 2 },
+                    };
+
+                Console.WriteLine("get");
                 return _fuzzyVariables;
             }
             set
             {
                 _fuzzyVariables = value;
                 OnPropertyChanged("FuzzyVariables");
+                Console.WriteLine("property changed");
             }
         }
+        #endregion
 
+        #region Rule Blocks List
         ObservableCollection<RuleBlockModel> _ruleBlocks;
         public ObservableCollection<RuleBlockModel> RuleBlocks
         {
@@ -45,6 +59,7 @@ namespace ExpertSystem.ViewModel
                 OnPropertyChanged("RuleBlocks");
             }
         }
+        #endregion
 
         #region Create Variable Window Command
         RelayCommand _openCreatingVariableWindowCommnad;
@@ -62,15 +77,28 @@ namespace ExpertSystem.ViewModel
 
         private void ExecuteOpenCreateVaribleWindowCommand(object obj)
         {
-            CreateVariableViewModel createVarWindow = new CreateVariableViewModel();
-            createVarWindow.OnFuzzyVariableCreate += OnFuzzyVariableAdd;
-
-            OpenWindow(new View.CreateVariableView());
+            View.CreateVariableView createVariableView = new View.CreateVariableView();
+            createVariableView.DataContext = new CreateVariableViewModel();
+            ((CreateVariableViewModel)createVariableView.DataContext).OnFuzzyVariableCreate += OnFuzzyVariableAdd;
+            createVariableView.ShowDialog();
         }
 
         private void OnFuzzyVariableAdd(FuzzyVariableModel newFuzzyVariable)
         {
-            Console.WriteLine(newFuzzyVariable.Name);
+            if (FuzzyVariables == null)
+                FuzzyVariables = new ObservableCollection<FuzzyVariableModel>();
+
+            if (!FuzzyVariables.Contains(newFuzzyVariable))
+            {
+                FuzzyVariables.Add(newFuzzyVariable);
+                Console.WriteLine("added");
+            }
+
+            foreach (var item in _fuzzyVariables)
+            {
+                Console.WriteLine(item.Name);
+            }
+            Console.WriteLine();
         }
         #endregion
 
@@ -83,10 +111,36 @@ namespace ExpertSystem.ViewModel
             {
                 if (_openCreatingRuleBlockWindow == null)
                     _openCreatingRuleBlockWindow = new RelayCommand(
-                        (obj) => OpenWindow(new View.RuleBlockView())     //open Creation Rule Block Window
+                        ExecuteOpenCreationRuleBlockCommand     //open Creation Rule Block Window
                         , (obj) => { return true; });
                 return _openCreatingRuleBlockWindow;
             }
+        }
+
+        private void ExecuteOpenCreationRuleBlockCommand(object obj)
+        {
+            View.RuleBlockView ruleBlockView = new View.RuleBlockView();
+            ruleBlockView.DataContext = new CreateRuleBlockViewModel(_fuzzyVariables);
+            ((CreateRuleBlockViewModel)ruleBlockView.DataContext).OnSendedVariableAndRuleBlockEvent += OnRuleBlockCreated;
+           ruleBlockView.ShowDialog();
+        }
+
+        private void OnRuleBlockCreated(RuleBlockModel ruleBlock)
+        {
+            if (ruleBlock == null)
+                return;
+
+            if (_ruleBlocks == null)
+                _ruleBlocks = new ObservableCollection<RuleBlockModel>();
+
+            if (!_ruleBlocks.Contains(ruleBlock))
+                _ruleBlocks.Add(ruleBlock);
+
+            foreach (var item in _ruleBlocks)
+            {
+                Console.WriteLine(item.Name);
+            }
+            Console.WriteLine();
         }
 
         #endregion

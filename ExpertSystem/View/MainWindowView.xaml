@@ -114,25 +114,42 @@
             Дерево базы данных. Здесь будут содержаться переменные,
             базы правил и прочее (еще не придумал что)
         -->
-        <TreeView
-            Grid.Row="1"
-            Grid.Column="0"
-            Margin="5"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Background="WhiteSmoke">
+        <StackPanel Grid.Row="1">
+            <TreeView
+                Grid.Row="1"
+                Grid.Column="0"
+                MinHeight="180"
+                Margin="5"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="WhiteSmoke"
+                ItemsSource="{Binding FuzzyVariables}">
 
-            <TreeViewItem Header="Variable Group">
-                <!--  inputs variables  -->
-                <TreeViewItem Header="Inputs" />
-                <TreeViewItem Header="Outputs" />
-                <TreeViewItem Header="Intermediate" />
-            </TreeViewItem>
+                <TreeView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </TreeView.ItemTemplate>
 
-            <TreeViewItem Header="Rule blocks" />
-        </TreeView>
+            </TreeView>
 
+            <TreeView
+                Grid.Row="1"
+                Grid.Column="0"
+                MinHeight="180"
+                Margin="5"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="WhiteSmoke"
+                ItemsSource="{Binding RuleBlocks}">
 
+                <TreeView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </TreeView.ItemTemplate>
 
+            </TreeView>
+        </StackPanel>
     </Grid>
 </Window>

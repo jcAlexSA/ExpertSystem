@@ -3,6 +3,7 @@ using MVVM_Sample.Infrastructure;
 using MVVM_Sample.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,46 @@ namespace ExpertSystem.ViewModel
 {
     public class CreateRuleBlockViewModel : ViewModelBase
     {
+        public delegate void SendedVariablesAndRuleBlock(RuleBlockModel ruleBlock);
+
+        public event SendedVariablesAndRuleBlock OnSendedVariableAndRuleBlockEvent;
+
+
+        public CreateRuleBlockViewModel()
+        {
+
+        }
+
+        public CreateRuleBlockViewModel(ObservableCollection<FuzzyVariableModel> sendedFuzzyVariables)
+        {
+            _sendedFuzzyVariables = sendedFuzzyVariables;
+        }
+
+        public CreateRuleBlockViewModel(ObservableCollection<FuzzyVariableModel> sendedFuzzyVariables, RuleBlockModel ruleBlock)
+        {
+            _sendedFuzzyVariables = sendedFuzzyVariables;
+            _ruleBlock = ruleBlock;
+        }
+
+        #region Sended Fuzzy Variable
+        private ObservableCollection<FuzzyVariableModel> _sendedFuzzyVariables;
+        public ObservableCollection<FuzzyVariableModel> SendedFuzzyVariables
+        {
+            get
+            {
+                if (_sendedFuzzyVariables == null)
+                    _sendedFuzzyVariables = new ObservableCollection<FuzzyVariableModel>();
+                return _sendedFuzzyVariables;
+            }
+            set
+            {
+                _sendedFuzzyVariables = value;
+                OnPropertyChanged("SendedFuzzyVariables");
+            }
+        }
+        #endregion
+
+        #region Current Rule Block
         private RuleBlockModel _ruleBlock;
 
         public RuleBlockModel RuleBlock
@@ -28,8 +69,10 @@ namespace ExpertSystem.ViewModel
                 OnPropertyChanged("RuleBlock");
             }
         }
+        #endregion
 
-        #region Add rule block
+
+        #region Add Rule Block
         RelayCommand _addRuleBlockCommand;
         public ICommand AddRuleBlockCommand
         {
@@ -48,7 +91,9 @@ namespace ExpertSystem.ViewModel
 
         private void ExecuteCreateRuleBlockCommand(object obj)
         {
-            //TODO
+            if(OnSendedVariableAndRuleBlockEvent != null)
+                OnSendedVariableAndRuleBlockEvent(_ruleBlock);
+
             CloseWindow();
         }
         #endregion

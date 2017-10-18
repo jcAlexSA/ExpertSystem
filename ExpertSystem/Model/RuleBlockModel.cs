@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,17 +17,17 @@ namespace ExpertSystem.Model
             set { _name = value; }
         }
 
-        private List<FuzzyVariableModel> _inputVariables;
+        private ObservableCollection<FuzzyVariableModel> _inputVariables;
 
-        public List<FuzzyVariableModel> InputVariables
+        public ObservableCollection<FuzzyVariableModel> InputVariables
         {
             get { return _inputVariables; }
             set { _inputVariables = value; }
         }
 
-        private List<FuzzyVariableModel> _outputVariables;
+        private ObservableCollection<FuzzyVariableModel> _outputVariables;
 
-        public List<FuzzyVariableModel> OutputVatiables
+        public ObservableCollection<FuzzyVariableModel> OutputVatiables
         {
             get { return _outputVariables; }
             set { _outputVariables = value; }
@@ -41,6 +42,27 @@ namespace ExpertSystem.Model
         public RuleBlockModel(string name)
         {
             _name = name;
+        }
+
+        public RuleBlockModel(string name, ObservableCollection<FuzzyVariableModel> inputVariables,
+            ObservableCollection<FuzzyVariableModel> outputVariables)
+        {
+            _name = name;
+            _inputVariables = inputVariables;
+            _outputVariables = outputVariables;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            return (obj as RuleBlockModel).Name.Equals(Name);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
     }

@@ -107,6 +107,7 @@
         </DockPanel>
 
         <Border
+            MaxHeight="125"
             Margin="20,5"
             BorderBrush="SteelBlue"
             BorderThickness="1"
@@ -125,7 +126,13 @@
 
                 <TextBlock Text="Variables: " />
                 <ScrollViewer Grid.Row="1" Margin="5,0">
-                    <ListBox />
+                    <ListBox ItemsSource="{Binding Path=SendedFuzzyVariables}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </ScrollViewer>
 
                 <StackPanel Grid.RowSpan="3" Grid.Column="1">
@@ -167,7 +174,7 @@
             <Button
                 Margin="15,5"
                 Command="{Binding AddRuleBlockCommand}"
-                Content="Create"
+                Content="OK"
                 Style="{StaticResource ButtonWindowControlStyle}" />
             <Button
                 Margin="15,5"

@@ -113,6 +113,17 @@ namespace ExpertSystem.Model
             _name = name;
             _terms = terms;
         }
-        
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+            return (obj as FuzzyVariableModel).Name.Equals(this.Name);
+        }
     }
 }

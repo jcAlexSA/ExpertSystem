@@ -136,16 +136,33 @@
                 </ScrollViewer>
 
                 <StackPanel Grid.RowSpan="3" Grid.Column="1">
+                    <!--<StackPanel.Resources>
+                        <multiConverter:MultiParametersConverter x:Key="multiParamConverter" />
+                    </StackPanel.Resources>-->
                     <Button
                         Command="{Binding ToInputListCommand}"
                         CommandParameter="{Binding ElementName=ReceivedVariblesListBox, Path=SelectedIndex}"
                         Content="Input"
-                        Style="{StaticResource ButtonVariableControlStyle}" />
+                        Style="{StaticResource ButtonVariableControlStyle}">
+                        <!--<Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource multiParamConverter}">
+                                <Binding ElementName="ReceivedVariblesListBox" Path="SelectedIndex" />
+                                <Binding ElementName="ReceivedVariblesListBox" Path="IsKeyboardFocusWithin" />
+                            </MultiBinding>
+                        </Button.CommandParameter>-->
+                    </Button>
                     <Button
                         Command="{Binding ToOutputListCommand}"
                         CommandParameter="{Binding ElementName=ReceivedVariblesListBox, Path=SelectedIndex}"
                         Content="Output"
-                        Style="{StaticResource ButtonVariableControlStyle}" />
+                        Style="{StaticResource ButtonVariableControlStyle}">
+                        <!--<Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource multiParamConverter}">
+                                <Binding ElementName="ReceivedVariblesListBox" Path="SelectedIndex" />
+                                <Binding ElementName="ReceivedVariblesListBox" Path="IsKeyboardFocusWithin" />
+                            </MultiBinding>
+                        </Button.CommandParameter>-->
+                    </Button>
                     <Button Content="Remove" Style="{StaticResource ButtonVariableControlStyle}" />
                 </StackPanel>
 

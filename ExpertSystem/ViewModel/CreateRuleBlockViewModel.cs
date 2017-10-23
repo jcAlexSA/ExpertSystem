@@ -117,13 +117,30 @@ namespace ExpertSystem.ViewModel
             get
             {
                 if (_toInputListCommand == null)
-                    _toInputListCommand = new RelayCommand(ExecutePassSendedVariableToInputListVariables,
-                        (obj) => (_sendedFuzzyVariables?.Count > 0));
+                    _toInputListCommand = new RelayCommand(ExecuteTransferSentVariableToInputListVariables,
+                        CanTransferSentVariablesToInputOrOutputList);
                 return _toInputListCommand;
             }
         }
 
-        private void ExecutePassSendedVariableToInputListVariables(object obj)
+        /// <summary>
+        /// Check if Sent variables list is not null and some item has selected
+        /// </summary>
+        /// <param name="obj">list box in that user select item</param>
+        /// <returns>true if sent variables not null and at lesst one item has selected</returns>
+        private bool CanTransferSentVariablesToInputOrOutputList(object obj)
+        {
+            //if (obj == null)
+            //    return false;
+
+            //var values = (object[])obj;
+
+            //return _sendedFuzzyVariables?.Count > 0 && (int) values[0] != -1 && (bool) values[1];
+
+            return _sendedFuzzyVariables?.Count > 0 && (int)obj != -1;
+        }
+
+        private void ExecuteTransferSentVariableToInputListVariables(object obj)
         {
             if (obj == null)
                 return;
@@ -140,13 +157,13 @@ namespace ExpertSystem.ViewModel
             get
             {
                 if (_toOutputListCommand == null)
-                    _toOutputListCommand = new RelayCommand(ExecutePassSendedVariableToOutputListVariables,
-                        (obj) => (_sendedFuzzyVariables?.Count > 0));
+                    _toOutputListCommand = new RelayCommand(ExecuteTransferSentVariableToOutputListVariables,
+                        CanTransferSentVariablesToInputOrOutputList);
                 return _toOutputListCommand;
             }
         }
 
-        private void ExecutePassSendedVariableToOutputListVariables(object obj)
+        private void ExecuteTransferSentVariableToOutputListVariables(object obj)
         {
             if (obj == null)
                 return;
@@ -156,12 +173,13 @@ namespace ExpertSystem.ViewModel
         }
         #endregion
 
-        private void SendDataFromOneCollectionToSecond(ObservableCollection<FuzzyVariableModel> copyFromVariables, ObservableCollection<FuzzyVariableModel> recipientVariables, int indexCopyElement)
+        private void SendDataFromOneCollectionToSecond(ObservableCollection<FuzzyVariableModel> copyFromVariables, 
+            ObservableCollection<FuzzyVariableModel> recipientVariables, int indexCopyElement)
         {
             if (indexCopyElement < 0)
                 return;
 
-            recipientVariables.Add(copyFromVariables.ElementAt(indexCopyElement));
+            recipientVariables.Add(copyFromVariables.ElementAt(indexCopyElement));            
         }
     }
 }

@@ -3,6 +3,7 @@ using MVVM_Sample.Infrastructure;
 using MVVM_Sample.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace ExpertSystem.ViewModel
         public int SelectedTabItemIndex
         {
             get
-            {                
+            {
                 return _selectedTabItemIndex;
             }
             set
@@ -51,7 +52,7 @@ namespace ExpertSystem.ViewModel
         }
 
         #endregion
-        
+
         #region Next Button Click
         RelayCommand _nextTabControlItemCommand;
         public ICommand NextTabControlItemCommand
@@ -74,7 +75,7 @@ namespace ExpertSystem.ViewModel
         {
             if (_selectedTabItemIndex == 2)
             {
-                if(OnFuzzyVariableCreate != null)
+                if (OnFuzzyVariableCreate != null)
                     OnFuzzyVariableCreate(_newFuzzyVariable);
 
                 CloseWindow();
@@ -83,7 +84,7 @@ namespace ExpertSystem.ViewModel
                 SelectedTabItemIndex = ++_selectedTabItemIndex;
         }
         #endregion
-        
+
         #region Previous Button Click Command
         RelayCommand _previousTabControlItemCommand;
         public ICommand PreviousTabControlItemCommand
@@ -91,7 +92,7 @@ namespace ExpertSystem.ViewModel
             get
             {
                 if (_previousTabControlItemCommand == null)
-                    _previousTabControlItemCommand = new RelayCommand(ExecutePreviousTabControlCommand, 
+                    _previousTabControlItemCommand = new RelayCommand(ExecutePreviousTabControlCommand,
                         (obj) => { return _selectedTabItemIndex > 0; });
                 return _previousTabControlItemCommand;
             }
@@ -102,7 +103,7 @@ namespace ExpertSystem.ViewModel
             SelectedTabItemIndex = --_selectedTabItemIndex;
         }
         #endregion
-        
+
         #region Close Command
         RelayCommand _closeWindowCommand;
         public ICommand CloseWindowCommand
@@ -116,7 +117,7 @@ namespace ExpertSystem.ViewModel
         }
         #endregion
 
-
+        #region Term Manager : add, remove, edit
         TermModel _currentTerm;
         public TermModel CurrentTerm
         {
@@ -133,7 +134,7 @@ namespace ExpertSystem.ViewModel
             }
         }
 
-
+        // Command of adding new term to the fuzzy variable
         RelayCommand _addTerm;
         public ICommand AddTermCommand
         {
@@ -145,10 +146,9 @@ namespace ExpertSystem.ViewModel
             }
         }
 
-
         private bool CanExecuteAddTermCommand(object obj)
         {
-            return !string.IsNullOrEmpty(_currentTerm?.NameTerm); //todo another
+            return !string.IsNullOrEmpty(_currentTerm?.NameTerm); //todo another conditions and check on adding equals terms
         }
 
         private void ExecuteAddTermCommand(object obj)
@@ -157,5 +157,47 @@ namespace ExpertSystem.ViewModel
             CurrentTerm = null;
         }
 
+        RelayCommand _deleteTerm;
+        public ICommand DeleteTermCommand
+        {
+            get
+            {
+                if (_deleteTerm == null)
+                    _deleteTerm = new RelayCommand(ExecuteDeleteTermCommand, CanExecuteDeleteTermCommand);
+                return _deleteTerm;
+            }
+        }
+
+        private bool CanExecuteDeleteTermCommand(object obj)
+        {
+            return obj != null; 
+        }
+
+        /// <summary>
+        /// type cast. create temp list to remove selected element. in empty collection add remain elements
+        /// </summary>
+        /// <param name="obj">array of selected items (terms)</param>
+        private void ExecuteDeleteTermCommand(object obj)
+        {
+            if (obj == null)
+                return;
+
+            //type cast for futher work
+            System.Collections.IList selectedItemsCollection = (System.Collections.IList)obj;
+            var selectedCollection = selectedItemsCollection.Cast<TermModel>();
+
+            //copy elements 
+            List<TermModel> listAfterDelete = _newFuzzyVariable.Terms.ToList();
+
+            //remove selected elements
+            foreach (var item in selectedCollection)
+                listAfterDelete.Remove(item);
+
+            _newFuzzyVariable.Terms.Clear();
+            //copy remain elements back to observing item
+            foreach (var item in listAfterDelete)
+                _newFuzzyVariable.Terms.Add(item);
+        }
+        #endregion
     }
 }

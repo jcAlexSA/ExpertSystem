@@ -31,7 +31,7 @@ namespace ExpertSystem.Model
             get
             {
                 if (_function == null)
-                    _function = new TriangleFunction();
+                    _function = new TriangleFunction();     //TODO HERE SHOUDN'T BE SPECIFIC CLASS
                 return _function;
             }
             set
@@ -42,8 +42,7 @@ namespace ExpertSystem.Model
 
         public TermModel()
         {
-            _function = new TriangleFunction();
+            _function = new TriangleFunction();     //TODO HERE SHOUDN'T BE SPECIFIC CLASS
         }
-        
     }        
 }

@@ -3,10 +3,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:ExpertSystem.ViewModel"
+    xmlns:multiConverter="clr-namespace:ExpertSystem.Model"
     Title="RuleBlockWizard"
-    Width="469.853"
-    Height="339.706"
-    ResizeMode="NoResize"
+    Width="549"
+    Height="394"
+    MinWidth="495"
+    MinHeight="330"
+    ResizeMode="CanMinimize"
     WindowStartupLocation="CenterOwner">
 
     <Window.DataContext>
@@ -14,6 +17,8 @@
     </Window.DataContext>
 
     <Window.Resources>
+        <!--  converter  -->
+        <multiConverter:MultiParametersConverter x:Key="MultiParametersConverter" />
         <!--  textBlock  -->
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -77,125 +82,185 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style TargetType="ListBox">
-            <Setter Property="Background" Value="#F4F4FD" />
-        </Style>
     </Window.Resources>
 
-    <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0.1*" MinHeight="40" />
+        </Grid.RowDefinitions>
 
-        <GroupBox
-            Margin="15,5,15,5"
-            BorderBrush="LightGray"
-            Header="Define Rule Block Configuration">
-            <TextBlock
-                Margin="5"
-                Text="The Rule Block Wizard will help you to create a complete rule block with an initial set of rules. You are may alter all rules individually with the tule block editors. In this step you have to specify the rule block name and the input and output variables for the block"
-                TextAlignment="Justify"
-                TextWrapping="Wrap" />
-        </GroupBox>
+        <DockPanel VerticalAlignment="Stretch" LastChildFill="True">
+            <GroupBox
+                Margin="15,5,15,5"
+                BorderBrush="LightGray"
+                DockPanel.Dock="Top"
+                Header="Define Rule Block Configuration">
+                <TextBlock
+                    Margin="5"
+                    Text="The Rule Block Wizard will help you to create a complete rule block with an initial set of rules. You are may alter all rules individually with the tule block editors. In this step you have to specify the rule block name and the input and output variables for the block"
+                    TextAlignment="Justify"
+                    TextWrapping="Wrap" />
+            </GroupBox>
 
-        <DockPanel Margin="30,0">
-            <TextBlock
-                Margin="5"
-                DockPanel.Dock="Left"
-                Text="Rule Block Name: " />
-            <TextBox
-                Background="Lavender"
-                DockPanel.Dock="Right"
-                Text="{Binding Path=RuleBlock.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        </DockPanel>
+            <DockPanel Margin="30,0" DockPanel.Dock="Top">
+                <TextBlock
+                    Margin="5"
+                    DockPanel.Dock="Left"
+                    Text="Rule Block Name: " />
+                <TextBox
+                    Background="Lavender"
+                    DockPanel.Dock="Right"
+                    Text="{Binding Path=RuleBlock.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </DockPanel>
 
-        <Border
-            MaxHeight="125"
-            Margin="20,5"
-            BorderBrush="SteelBlue"
-            BorderThickness="1"
-            CornerRadius="5">
-            <Grid Margin="5,0,5,8">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*" />
-                    <RowDefinition Height="*" MinHeight="90" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+            <Border
+                Margin="20,5"
+                BorderBrush="SlateGray"
+                BorderThickness="1"
+                CornerRadius="5"
+                DockPanel.Dock="Top">
 
-                <TextBlock Text="Variables: " />
-                <ScrollViewer Grid.Row="1" Margin="5,0">
-                    <ListBox Name="ReceivedVariblesListBox" ItemsSource="{Binding Path=SendedFuzzyVariables}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </ScrollViewer>
+                <Grid Margin="5,0,5,8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*" MinHeight="20" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" MinWidth="100" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.RowSpan="3" Grid.Column="1">
-                    <!--<StackPanel.Resources>
+                    <TextBlock Text="Variables: " />
+                    <ScrollViewer Grid.Row="1" Margin="5,0">
+                        <ListBox
+                            Name="ReceivedVariblesListBox"
+                            Background="#F4F4FD"
+                            ItemsSource="{Binding Path=SendedFuzzyVariables}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+
+                    <StackPanel
+                        Grid.RowSpan="3"
+                        Grid.Column="1"
+                        VerticalAlignment="Center">
+                        <!--<StackPanel.Resources>
                         <multiConverter:MultiParametersConverter x:Key="multiParamConverter" />
                     </StackPanel.Resources>-->
-                    <Button
-                        Command="{Binding ToInputListCommand}"
-                        CommandParameter="{Binding ElementName=ReceivedVariblesListBox, Path=SelectedIndex}"
-                        Content="Input"
-                        Style="{StaticResource ButtonVariableControlStyle}">
-                        <!--<Button.CommandParameter>
+                        <Button
+                            Command="{Binding ToInputListCommand}"
+                            CommandParameter="{Binding ElementName=ReceivedVariblesListBox, Path=SelectedIndex}"
+                            Content="Input"
+                            Style="{StaticResource ButtonVariableControlStyle}">
+                            <!--<Button.CommandParameter>
                             <MultiBinding Converter="{StaticResource multiParamConverter}">
                                 <Binding ElementName="ReceivedVariblesListBox" Path="SelectedIndex" />
                                 <Binding ElementName="ReceivedVariblesListBox" Path="IsKeyboardFocusWithin" />
                             </MultiBinding>
                         </Button.CommandParameter>-->
-                    </Button>
-                    <Button
-                        Command="{Binding ToOutputListCommand}"
-                        CommandParameter="{Binding ElementName=ReceivedVariblesListBox, Path=SelectedIndex}"
-                        Content="Output"
-                        Style="{StaticResource ButtonVariableControlStyle}">
-                        <!--<Button.CommandParameter>
+                        </Button>
+                        <Button
+                            Command="{Binding ToOutputListCommand}"
+                            CommandParameter="{Binding ElementName=ReceivedVariblesListBox, Path=SelectedIndex}"
+                            Content="Output"
+                            Style="{StaticResource ButtonVariableControlStyle}">
+                            <!--<Button.CommandParameter>
                             <MultiBinding Converter="{StaticResource multiParamConverter}">
                                 <Binding ElementName="ReceivedVariblesListBox" Path="SelectedIndex" />
                                 <Binding ElementName="ReceivedVariblesListBox" Path="IsKeyboardFocusWithin" />
                             </MultiBinding>
                         </Button.CommandParameter>-->
-                    </Button>
-                    <Button Content="Remove" Style="{StaticResource ButtonVariableControlStyle}" />
-                </StackPanel>
+                        </Button>
 
-                <TextBlock Grid.Column="2" Text="Input:" />
-                <ScrollViewer
-                    Grid.Row="1"
-                    Grid.Column="2"
-                    Margin="3,0">
-                    <ListBox ItemsSource="{Binding Path=RuleBlock.InputVariables, Mode=TwoWay}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </ScrollViewer>
+                        <Button
+                            Command="{Binding RemoveVartiableFromRuleBlockCommand}"
+                            Content="Remove"
+                            Style="{StaticResource ButtonVariableControlStyle}">
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource ResourceKey=MultiParametersConverter}">
+                                    <Binding ElementName="InputVariablesListBox" />
+                                    <Binding ElementName="OutputVariablesListBox" />
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                    </StackPanel>
 
-                <TextBlock Grid.Column="3" Text="Output:" />
-                <ScrollViewer
-                    Grid.Row="1"
-                    Grid.Column="3"
-                    Margin="3,0">
-                    <ListBox ItemsSource="{Binding Path=RuleBlock.OutputVatiables, Mode=TwoWay}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </ScrollViewer>
-            </Grid>
-        </Border>
-        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <TextBlock Grid.Column="2" Text="Input:" />
+                    <ScrollViewer
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Margin="3,0">
+                        <ListBox
+                            Name="InputVariablesListBox"
+                            Background="#F4F4FD"
+                            ItemsSource="{Binding Path=RuleBlock.InputVariables, Mode=TwoWay}">
+                            <!--  this trigger need to unselect items if focue leaved  -->
+                            <ListBox.Style>
+                                <Style TargetType="ListBox">
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ElementName=InputVariablesListBox, Path=IsKeyboardFocusWithin}" Value="False" />
+                                                <Condition Binding="{Binding ElementName=OutputVariablesListBox, Path=IsKeyboardFocusWithin}" Value="True" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="SelectedIndex" Value="-1" />
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListBox.Style>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+
+                    <TextBlock Grid.Column="3" Text="Output:" />
+                    <ScrollViewer
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        Margin="3,0">
+                        <ListBox
+                            Name="OutputVariablesListBox"
+                            Background="#F4F4FD"
+                            ItemsSource="{Binding Path=RuleBlock.OutputVatiables, Mode=TwoWay}">
+                            <!--  this trigger need to unselect items if focue leaved  -->
+                            <ListBox.Style>
+                                <Style TargetType="ListBox">
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ElementName=InputVariablesListBox, Path=IsKeyboardFocusWithin}" Value="True" />
+                                                <Condition Binding="{Binding ElementName=OutputVariablesListBox, Path=IsKeyboardFocusWithin}" Value="False" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="SelectedIndex" Value="-1" />
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListBox.Style>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </DockPanel>
+
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
             <Button
                 Margin="15,5"
                 Command="{Binding AddRuleBlockCommand}"
@@ -208,6 +273,6 @@
                 Style="{StaticResource ButtonWindowControlStyle}" />
         </StackPanel>
 
-    </StackPanel>
+    </Grid>
 
 </Window>

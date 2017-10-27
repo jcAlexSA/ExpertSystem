@@ -18,8 +18,8 @@ namespace ExpertSystem.Model.MMBF_Functions
         public string Name
         {
             get { return _name; }
-        }        
-        
+        }
+
         public float Low
         {
             get
@@ -28,7 +28,8 @@ namespace ExpertSystem.Model.MMBF_Functions
             }
             set
             {
-                _low = value;
+                if (value != _low && value <= _mid)
+                    _low = value;
             }
         }
 
@@ -40,7 +41,8 @@ namespace ExpertSystem.Model.MMBF_Functions
             }
             set
             {
-                _mid = value;
+                if (value != _mid && value <= _high)
+                    _mid = value;
             }
         }
 
@@ -52,7 +54,8 @@ namespace ExpertSystem.Model.MMBF_Functions
             }
             set
             {
-                _high = value;
+                if(value != _high && value >= _mid)
+                    _high = value;
             }
         }
 

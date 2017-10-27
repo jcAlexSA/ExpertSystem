@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
+using System.Windows.Data;
 
 namespace ExpertSystem.Model
 {
@@ -65,29 +63,30 @@ namespace ExpertSystem.Model
 
     }
 
-    //public class MultiParametersConverter : IMultiValueConverter
-    //{
-    //    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        if (values[0] == null || values[1] == null)
-    //            return null;
+    public class MultiParametersConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values[0] == null || values[1] == null)
+                return null;
 
-    //        return this.Copy(values);
-    //    }
+            return this.Copy(values);
+        }
 
-    //    private object[] Copy(object[] values)
-    //    {
-    //        object[] objArr = new object[values.Length];
-    //        for (int i = 0; i < objArr.Length; i++)
-    //        {
-    //            objArr[i] = values[i];
-    //        }
-    //        return objArr;
-    //    }
+        private object[] Copy(object[] values)
+        {
+            object[] objArr = new object[values.Length];
+            for (int i = 0; i < objArr.Length; i++)
+            {
+                objArr[i] = values[i];
+            }
+            return objArr;
+        }
 
-    //    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 }

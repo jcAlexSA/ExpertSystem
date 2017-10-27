@@ -73,7 +73,7 @@ namespace ExpertSystem.Model
             }
             set
             {
-                if (_maxValue != value && _maxValue >= _minValue)
+                if (value != _maxValue && value >= _minValue)
                     _maxValue = value;
             }
         }
@@ -86,7 +86,7 @@ namespace ExpertSystem.Model
             }
             set
             {
-                if (_minValue != value && _minValue <= _maxValue)
+                if (value != _minValue && value <= _maxValue)
                     _minValue = value;
             }
         }
@@ -121,7 +121,7 @@ namespace ExpertSystem.Model
 
         public override bool Equals(object obj)
         {
-            return false;
+            return base.Equals(obj);
             //if (obj == null)
             //    return false;
 

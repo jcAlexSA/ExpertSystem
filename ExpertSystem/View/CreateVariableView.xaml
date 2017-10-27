@@ -6,9 +6,11 @@
     xmlns:local="clr-namespace:ExpertSystem.ViewModel"
     x:Name="CreateVariableWin"
     Title="Create Variable Wizard"
-    Width="461"
-    Height="364"
-    ResizeMode="NoResize"
+    Width="153"
+    Height="210"
+    MinWidth="450"
+    MinHeight="360"
+    ResizeMode="CanResize"
     WindowStartupLocation="CenterOwner">
 
     <Window.DataContext>
@@ -55,11 +57,18 @@
 
     </Window.Resources>
 
-    <DockPanel>
-
+    <!--<DockPanel
+        Height="Auto"
+        VerticalAlignment="Stretch"
+        LastChildFill="True" >-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <TabControl
             Name="TabControlWizard"
-            DockPanel.Dock="Top"
+            Grid.Row="0"
             SelectedIndex="{Binding SelectedTabItemIndex, Mode=TwoWay}">
             <!--  first step (tab)  -->
             <TabItem
@@ -90,7 +99,7 @@
 
                     <GroupBox
                         Margin="20,10"
-                        BorderBrush="SteelBlue"
+                        BorderBrush="SlateGray"
                         Header="Type">
 
                         <StackPanel>
@@ -120,8 +129,11 @@
                 Header="Second step"
                 TabIndex="1">
                 <!--  second step (tab)  -->
-                <StackPanel>
-                    <GroupBox Margin="15,0" Header="MBF Definition">
+                <DockPanel>
+                    <GroupBox
+                        Margin="15,0"
+                        DockPanel.Dock="Top"
+                        Header="MBF Definition">
                         <TextBlock
                             Margin="5"
                             FontSize="11"
@@ -132,7 +144,9 @@
 
                     <DockPanel
                         MinHeight="30"
+                        Margin="15,0"
                         HorizontalAlignment="Center"
+                        DockPanel.Dock="Top"
                         LastChildFill="False">
                         <TextBlock MinWidth="50" Text="Min:" />
                         <TextBox MinWidth="100" Text="{Binding Path=NewFuzzyVariable.Min, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -143,44 +157,39 @@
                         <TextBox MinWidth="100" Text="{Binding Path=NewFuzzyVariable.Max, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </DockPanel>
 
-
-
                     <GroupBox
+                        Height="Auto"
                         Margin="20,0"
-                        BorderBrush="SteelBlue"
+                        VerticalAlignment="Stretch"
+                        BorderBrush="SlateGray"
                         Header="Add term">
                         <Grid Margin="5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
+                                <RowDefinition Height="0.3*" MinHeight="35" />
+                                <RowDefinition Height="0.3*" MinHeight="35" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <TextBlock Text="Name of term" />
-                            <TextBox
-                                Grid.Column="1"
-                                Margin="2"
-                                Text="{Binding Path=CurrentTerm.NameTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                            <DockPanel
+                            <DockPanel LastChildFill="True">
+                                <TextBlock Padding="10,0" Text="Name of term" />
+                                <TextBox Text="{Binding Path=CurrentTerm.NameTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+
+                            <WrapPanel
                                 Grid.Row="1"
                                 Grid.ColumnSpan="2"
                                 Margin="2"
                                 HorizontalAlignment="Center"
-                                LastChildFill="False">
-                                <TextBlock MinWidth="40" Text="Low" />
+                                Orientation="Horizontal">
+                                <TextBlock MinWidth="30" Text="Low" />
                                 <TextBox MinWidth="60" Text="{Binding Path=CurrentTerm.Function.Low, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <TextBlock
-                                    MinWidth="40"
+                                    MinWidth="30"
                                     Margin="10,0,0,0"
                                     Text="Mid" />
                                 <TextBox MinWidth="60" Text="{Binding Path=CurrentTerm.Function.Mid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <TextBlock
-                                    MinWidth="40"
+                                    MinWidth="30"
                                     Margin="10,0,0,0"
                                     Text="High" />
                                 <TextBox MinWidth="60" Text="{Binding Path=CurrentTerm.Function.High, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -189,34 +198,78 @@
                                     Grid.ColumnSpan="2"
                                     Width="25"
                                     Height="25"
-                                    Margin="20,3,3,3"
+                                    Margin="15,3,3,3"
                                     Background="SlateGray"
                                     Command="{Binding AddTermCommand}"
                                     Content="+"
                                     FontSize="15"
+                                    FontWeight="ExtraBlack"
                                     Foreground="White"
                                     ToolTip="Add term" />
-                            </DockPanel>
+                                <Button
+                                    Grid.Row="2"
+                                    Grid.ColumnSpan="2"
+                                    Width="25"
+                                    Height="25"
+                                    Margin="5,3,3,3"
+                                    Background="IndianRed"
+                                    Command="{Binding DeleteTermCommand}"
+                                    CommandParameter="{Binding ElementName=TermsListBox, Path=SelectedItems}"
+                                    Content="-"
+                                    FontSize="15"
+                                    FontWeight="ExtraBlack"
+                                    Foreground="White"
+                                    ToolTip="Delete term" />
+                            </WrapPanel>
                             <!--  propbably DATAGRID will be better to use!!!!!!!!!!!  -->
                             <ScrollViewer
-                                Grid.Row="3"
+                                Grid.Row="2"
                                 Grid.ColumnSpan="2"
                                 VerticalScrollBarVisibility="Auto">
                                 <!--<ListBox Height="60" Background="#F4F4FD" />-->
-                                <ListBox Height="50" ItemsSource="{Binding Path=NewFuzzyVariable.Terms}">
+                                <ListBox
+                                    x:Name="TermsListBox"
+                                    Height="Auto"
+                                    MinHeight="50"
+                                    Background="#F4F4FD"
+                                    ItemsSource="{Binding Path=NewFuzzyVariable.Terms}"
+                                    SelectionMode="Multiple">
+                                    <ListBox.Resources>
+                                        <!--<ContextMenu x:Key="MyElementMenu">
+                                            <MenuItem
+                                                Command="{Binding DeleteTermCommand}"
+                                                CommandParameter="{Binding ElementName=TermsListBox, Path=SelectedIndex}"
+                                                Header="Delete" />
+                                        </ContextMenu>
+                                        <Style TargetType="{x:Type ListBoxItem}">
+                                            <Setter Property="ContextMenu" Value="{StaticResource MyElementMenu}" />
+                                        </Style>-->
+                                    </ListBox.Resources>
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="100" />
-                                                    <ColumnDefinition Width="20" />
-                                                    <ColumnDefinition Width="20" />
-                                                    <ColumnDefinition Width="20" />
+                                                    <ColumnDefinition Width="0.5*" MinWidth="100" />
+                                                    <ColumnDefinition Width="*" MinWidth="20" />
+                                                    <ColumnDefinition Width="*" MinWidth="20" />
+                                                    <ColumnDefinition Width="*" MinWidth="20" />
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Grid.Column="0" Text="{Binding NameTerm}" />
-                                                <TextBlock Grid.Column="1" Text="{Binding Path=Function.Low}" />
-                                                <TextBlock Grid.Column="2" Text="{Binding Path=Function.Mid}" />
-                                                <TextBlock Grid.Column="3" Text="{Binding Path=Function.High}" />
+                                                <TextBlock
+                                                    Grid.Column="0"
+                                                    Padding="5,1"
+                                                    Text="{Binding NameTerm}" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    Padding="5,1"
+                                                    Text="{Binding Path=Function.Low}" />
+                                                <TextBlock
+                                                    Grid.Column="2"
+                                                    Padding="5,1"
+                                                    Text="{Binding Path=Function.Mid}" />
+                                                <TextBlock
+                                                    Grid.Column="3"
+                                                    Padding="5,1"
+                                                    Text="{Binding Path=Function.High}" />
                                             </Grid>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
@@ -224,7 +277,7 @@
                             </ScrollViewer>
                         </Grid>
                     </GroupBox>
-                </StackPanel>
+                </DockPanel>
             </TabItem>
 
             <!--  third step (tab)  -->
@@ -234,15 +287,19 @@
                 FontSize="11"
                 Header="Third step"
                 TabIndex="2">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.5*" />
+                <DockPanel Height="Auto" VerticalAlignment="Stretch">
+                    <!--<Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>-->
 
-                    <GroupBox Margin="15,0" Header="Comment for Variable">
+                    <GroupBox
+                        Margin="15,0"
+                        DockPanel.Dock="Top"
+                        Header="Comment for Variable">
                         <TextBlock
                             Margin="5"
+                            VerticalAlignment="Center"
                             Text="The Linguistic Variables Wizard will help you to create a linguistic variable with an initial set of terms and membership functions. In this step you specify name, color and type of the variable."
                             TextAlignment="Justify"
                             TextWrapping="Wrap" />
@@ -250,17 +307,14 @@
 
                     <GroupBox
                         Grid.Row="1"
-                        Height="170"
-                        Margin="20,10"
-                        BorderBrush="SlateBlue"
+                        Margin="15,5,15,5"
+                        BorderBrush="SlateGray"
+                        DockPanel.Dock="Top"
                         Header="Comment">
-                        <ScrollViewer
-                            Height="160"
-                            VerticalContentAlignment="Top"
-                            VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto">
                             <TextBox
-                                Height="120"
-                                Margin="10"
+                                Height="Auto"
+                                Margin="5"
                                 VerticalContentAlignment="Top"
                                 AcceptsReturn="True"
                                 Text="{Binding Path=NewFuzzyVariable.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -268,15 +322,15 @@
                                 TextWrapping="Wrap" />
                         </ScrollViewer>
                     </GroupBox>
-                </Grid>
+                </DockPanel>
             </TabItem>
         </TabControl>
 
         <!--  controll buttons  -->
         <Grid
+            Grid.Row="1"
             Height="35"
-            VerticalAlignment="Bottom"
-            DockPanel.Dock="Bottom">
+            VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -305,6 +359,5 @@
                 Foreground="White"
                 Style="{StaticResource ButtonControlStyle}" />
         </Grid>
-
-    </DockPanel>
+    </Grid>
 </Window>

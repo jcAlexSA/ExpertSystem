@@ -183,33 +183,7 @@ namespace ExpertSystem.ViewModel
         }
 
 
-        /// <summary>
-        /// this shit code need to storing the name of that last click happened.
-        /// because if use <multibinding> and sent two listBox through button "Remove", it is not possible 
-        /// to know last element on than was focus
-        /// </summary>
-        #region Storing name of ListBox on that was last click
-        string _nameOfClickedListBox;       //TODO (see bookmark)
-        public string NameOfClickedListBox
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_nameOfClickedListBox))
-                    return null;
-                return _nameOfClickedListBox;
-            }
-
-            set
-            {
-                _nameOfClickedListBox = value;
-                Console.WriteLine(value);
-                OnPropertyChanged("NameOfClickedListBox");
-            }
-        }
-
-        #endregion
-
-        #region Remove Fuzzy Variable From Current Rule Block
+        #region Remove Input or Output Fuzzy Variable From Current Rule Block
         RelayCommand _removeVariableFromRuleBlockCommand;
         public ICommand RemoveVartiableFromRuleBlockCommand
         {
@@ -233,24 +207,44 @@ namespace ExpertSystem.ViewModel
         {
             if (obj == null)
                 return;
-            //TODO change this temporary shit code on more flexible  and do items multiselected
-            List<System.Windows.Controls.ListBox> listBoxes = new List<System.Windows.Controls.ListBox>();
+
+            //type casting
             var objects = (object[])obj;
+
+            List<System.Windows.Controls.ListBox> listBoxes = new List<System.Windows.Controls.ListBox>();
+
             foreach (var item in objects)
             {
                 listBoxes.Add((System.Windows.Controls.ListBox)item);
             }
 
-            if (listBoxes[0].SelectedIndex >= 0)
-            {
-                _sendedFuzzyVariables.Add(_ruleBlock.InputVariables.ElementAt(listBoxes[0].SelectedIndex));
-                _ruleBlock.InputVariables.RemoveAt(listBoxes[0].SelectedIndex);
-            }
-            else if (listBoxes[1].SelectedIndex >= 0)
-            {
-                _sendedFuzzyVariables.Add(_ruleBlock.OutputVatiables.ElementAt(listBoxes[1].SelectedIndex));
-                _ruleBlock.OutputVatiables.RemoveAt(listBoxes[1].SelectedIndex);
-            }
+            //TODO deleting elements from ruleBlock
+
+            
+
+
+       //_sendedFuzzyVariables.Concat(variableCollection);
+
+            
+
+            //TODO change this temporary shit code on more flexible  and do items multiselected
+            //List<System.Windows.Controls.ListBox> listBoxes = new List<System.Windows.Controls.ListBox>();
+            //var objects = (object[])obj;
+            //foreach (var item in objects)
+            //{
+            //    listBoxes.Add((System.Windows.Controls.ListBox)item);
+            //}
+
+            //if (listBoxes[0].SelectedIndex >= 0)
+            //{
+            //    _sendedFuzzyVariables.Add(_ruleBlock.InputVariables.ElementAt(listBoxes[0].SelectedIndex));
+            //    _ruleBlock.InputVariables.RemoveAt(listBoxes[0].SelectedIndex);
+            //}
+            //else if (listBoxes[1].SelectedIndex >= 0)
+            //{
+            //    _sendedFuzzyVariables.Add(_ruleBlock.OutputVatiables.ElementAt(listBoxes[1].SelectedIndex));
+            //    _ruleBlock.OutputVatiables.RemoveAt(listBoxes[1].SelectedIndex);
+            //}
         }
         #endregion
     }

@@ -198,6 +198,7 @@
                         Grid.Column="2"
                         Margin="3,0">
                         <ListBox
+                            SelectionMode="Multiple"
                             Name="InputVariablesListBox"
                             Background="#F4F4FD"
                             ItemsSource="{Binding Path=RuleBlock.InputVariables, Mode=TwoWay}">

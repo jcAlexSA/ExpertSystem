@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace ExpertSystem.View
 {
     /// <summary>
-    /// Interaction logic for Create_Variable.xaml
+    /// Interaction logic for VariableView.xaml
     /// </summary>
-    public partial class CreateVariableView : Window
+    public partial class VariableView : Window
     {
-        public CreateVariableView()
+        public VariableView()
         {
             InitializeComponent();
         }

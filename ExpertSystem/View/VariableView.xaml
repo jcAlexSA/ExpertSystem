@@ -1,11 +1,11 @@
 ﻿<Window
-    x:Class="ExpertSystem.View.CreateVariableView"
+    x:Class="ExpertSystem.View.VariableView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:enum="clr-namespace:ExpertSystem.Model"
     xmlns:local="clr-namespace:ExpertSystem.ViewModel"
-    x:Name="CreateVariableWin"
-    Title="Create Variable Wizard"
+    x:Name="VariableWin"
+    Title="Variable Wizard"
     Width="153"
     Height="210"
     MinWidth="450"
@@ -14,7 +14,7 @@
     WindowStartupLocation="CenterOwner">
 
     <Window.DataContext>
-        <local:CreateVariableViewModel />
+        <local:VariableViewModel />
     </Window.DataContext>
 
     <Window.Resources>
@@ -182,23 +182,23 @@
                                 HorizontalAlignment="Center"
                                 Orientation="Horizontal">
                                 <TextBlock MinWidth="30" Text="Low" />
-                                <TextBox MinWidth="60" Text="{Binding Path=CurrentTerm.Function.Low, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox MinWidth="55" Text="{Binding Path=CurrentTerm.Function.Low, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <TextBlock
                                     MinWidth="30"
                                     Margin="10,0,0,0"
                                     Text="Mid" />
-                                <TextBox MinWidth="60" Text="{Binding Path=CurrentTerm.Function.Mid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox MinWidth="55" Text="{Binding Path=CurrentTerm.Function.Mid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <TextBlock
                                     MinWidth="30"
                                     Margin="10,0,0,0"
                                     Text="High" />
-                                <TextBox MinWidth="60" Text="{Binding Path=CurrentTerm.Function.High, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox MinWidth="55" Text="{Binding Path=CurrentTerm.Function.High, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button
                                     Grid.Row="2"
                                     Grid.ColumnSpan="2"
                                     Width="25"
                                     Height="25"
-                                    Margin="15,3,3,3"
+                                    Margin="10,3,3,3"
                                     Background="SlateGray"
                                     Command="{Binding AddTermCommand}"
                                     Content="+"

@@ -56,16 +56,16 @@
     </ApplicationDefinition>
     <Compile Include="Infrastructure\RelayCommand.cs" />
     <Compile Include="Model\EnumerationsModel.cs" />
-    <Compile Include="Model\FuzzyVariableModel.cs" />
-    <Compile Include="Model\MembershipFunctionsModel\CalculateModel\ICalculateMembershipFunctionModel.cs" />
-    <Compile Include="Model\MembershipFunctionsModel\CalculateModel\TriangleCalculateFunctionModel.cs" />
-    <Compile Include="Model\MembershipFunctionsModel\IMembershipFunction.cs" />
-    <Compile Include="Model\MembershipFunctionsModel\TriangleFunction.cs" />
+    <Compile Include="Model\MembershipFunctionsModel\VariableModels\FuzzyVariableModel.cs" />
+    <Compile Include="Model\MembershipFunctionsModel\CalculateModels\ICalculateMembershipFunctionModel.cs" />
+    <Compile Include="Model\MembershipFunctionsModel\CalculateModels\TriangleCalculateFunctionModel.cs" />
+    <Compile Include="Model\MembershipFunctionsModel\FunctionModels\IMembershipFunction.cs" />
+    <Compile Include="Model\MembershipFunctionsModel\FunctionModels\TriangleFunction.cs" />
     <Compile Include="Model\MouseCoordinate.cs" />
-    <Compile Include="Model\RuleBlockModel.cs" />
-    <Compile Include="Model\TermModel.cs" />
-    <Compile Include="ViewModel\CreateRuleBlockViewModel.cs" />
-    <Compile Include="ViewModel\CreateVariableViewModel.cs" />
+    <Compile Include="Model\MembershipFunctionsModel\RuleBlockModels\RuleBlockModel.cs" />
+    <Compile Include="Model\MembershipFunctionsModel\TermModels\TermModel.cs" />
+    <Compile Include="ViewModel\RuleBlockViewModel.cs" />
+    <Compile Include="ViewModel\VariableViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="View\RuleBlockView.xaml.cs">
       <DependentUpon>RuleBlockView.xaml</DependentUpon>
@@ -73,7 +73,7 @@
     <Compile Include="VariableEditor.xaml.cs">
       <DependentUpon>VariableEditor.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\CreateVariableView.xaml">
+    <Page Include="View\VariableView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -86,8 +86,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Compile Include="View\CreateVariableView.xaml.cs">
-      <DependentUpon>CreateVariableView.xaml</DependentUpon>
+    <Compile Include="View\VariableView.xaml.cs">
+      <DependentUpon>VariableView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>

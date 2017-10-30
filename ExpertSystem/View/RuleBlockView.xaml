@@ -13,7 +13,7 @@
     WindowStartupLocation="CenterOwner">
 
     <Window.DataContext>
-        <local:CreateRuleBlockViewModel />
+        <local:RuleBlockViewModel />
     </Window.DataContext>
 
     <Window.Resources>
@@ -138,7 +138,8 @@
                         <ListBox
                             Name="ReceivedVariblesListBox"
                             Background="#F4F4FD"
-                            ItemsSource="{Binding Path=SendedFuzzyVariables}">
+                            ItemsSource="{Binding Path=SendedFuzzyVariables}"
+                            SelectionMode="Multiple">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Name}" />
@@ -198,10 +199,10 @@
                         Grid.Column="2"
                         Margin="3,0">
                         <ListBox
-                            SelectionMode="Multiple"
                             Name="InputVariablesListBox"
                             Background="#F4F4FD"
-                            ItemsSource="{Binding Path=RuleBlock.InputVariables, Mode=TwoWay}">
+                            ItemsSource="{Binding Path=RuleBlock.InputVariables, Mode=TwoWay}"
+                            SelectionMode="Multiple">
                             <!--  this trigger need to unselect items if focue leaved  -->
                             <ListBox.Style>
                                 <Style TargetType="ListBox">

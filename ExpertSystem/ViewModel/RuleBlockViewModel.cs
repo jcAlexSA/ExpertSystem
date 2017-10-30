@@ -11,18 +11,18 @@ using System.Windows.Input;
 
 namespace ExpertSystem.ViewModel
 {
-    public class CreateRuleBlockViewModel : ViewModelBase
+    public class RuleBlockViewModel : ViewModelBase
     {
         public delegate void SendedVariablesAndRuleBlock(RuleBlockModel ruleBlock);
 
         public event SendedVariablesAndRuleBlock OnSendedVariableAndRuleBlockEvent;
 
         #region Constructors
-        public CreateRuleBlockViewModel() : this(null, null) { }
+        public RuleBlockViewModel() : this(null, null) { }
 
-        public CreateRuleBlockViewModel(ObservableCollection<FuzzyVariableModel> sendedVariables) : this(sendedVariables, null) { }
+        public RuleBlockViewModel(ObservableCollection<FuzzyVariableModel> sendedVariables) : this(sendedVariables, null) { }
 
-        public CreateRuleBlockViewModel(ObservableCollection<FuzzyVariableModel> sendedFuzzyVariables, RuleBlockModel ruleBlock)
+        public RuleBlockViewModel(ObservableCollection<FuzzyVariableModel> sendedFuzzyVariables, RuleBlockModel ruleBlock)
         {
             _sendedFuzzyVariables = sendedFuzzyVariables;
             _ruleBlock = ruleBlock;
@@ -208,24 +208,34 @@ namespace ExpertSystem.ViewModel
             if (obj == null)
                 return;
 
-            //type casting
+            //TODO method for this
+            System.Windows.Controls.ListBox listBox = new System.Windows.Controls.ListBox();
             var objects = (object[])obj;
-
-            List<System.Windows.Controls.ListBox> listBoxes = new List<System.Windows.Controls.ListBox>();
-
             foreach (var item in objects)
             {
-                listBoxes.Add((System.Windows.Controls.ListBox)item);
+                if ((item as System.Windows.Controls.ListBox).SelectedItems.Count > 0)
+                {
+                    listBox = item as System.Windows.Controls.ListBox;//only one ListBox can be with SelectedItems, so here needn't collection of ListBoxes
+                    break;
+                }
             }
 
-            //TODO deleting elements from ruleBlock
+            List<FuzzyVariableModel> variablesToChange;
+            if (_ruleBlock.InputVariables.Contains(listBox.SelectedItems[0]))
+            {
+                variablesToChange = new List<FuzzyVariableModel>(_ruleBlock.InputVariables);
+                foreach (var variable in listBox.SelectedItems)
+                {
+                    variablesToChange.Remove((FuzzyVariableModel)variable);
+                }
+            }
 
-            
 
 
-       //_sendedFuzzyVariables.Concat(variableCollection);
 
-            
+            //_sendedFuzzyVariables.Concat(variableCollection);
+
+
 
             //TODO change this temporary shit code on more flexible  and do items multiselected
             //List<System.Windows.Controls.ListBox> listBoxes = new List<System.Windows.Controls.ListBox>();

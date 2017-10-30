@@ -77,10 +77,10 @@ namespace ExpertSystem.ViewModel
 
         private void ExecuteOpenCreateVaribleWindowCommand(object obj)
         {
-            View.CreateVariableView createVariableView = new View.CreateVariableView();
-            createVariableView.DataContext = new CreateVariableViewModel();
+            View.VariableView createVariableView = new View.VariableView();
+            createVariableView.DataContext = new VariableViewModel();
 
-            ((CreateVariableViewModel)createVariableView.DataContext).OnFuzzyVariableCreate += OnFuzzyVariableAdd;
+            ((VariableViewModel)createVariableView.DataContext).OnFuzzyVariableCreate += OnFuzzyVariableAdd;
 
             OpenWindow(createVariableView);
         }
@@ -122,9 +122,9 @@ namespace ExpertSystem.ViewModel
         private void ExecuteOpenCreationRuleBlockCommand(object obj)
         {
             View.RuleBlockView ruleBlockView = new View.RuleBlockView();
-            ruleBlockView.DataContext = new CreateRuleBlockViewModel(_fuzzyVariables);
+            ruleBlockView.DataContext = new RuleBlockViewModel(_fuzzyVariables);
 
-            ((CreateRuleBlockViewModel)ruleBlockView.DataContext).OnSendedVariableAndRuleBlockEvent += OnRuleBlockCreated;
+            ((RuleBlockViewModel)ruleBlockView.DataContext).OnSendedVariableAndRuleBlockEvent += OnRuleBlockCreated;
 
             OpenWindow(ruleBlockView);
         }

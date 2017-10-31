@@ -1,28 +1,25 @@
 ﻿using ExpertSystem.Model;
 using MVVM_Sample.Infrastructure;
 using MVVM_Sample.ViewModel;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ExpertSystem.ViewModel
 {
-    public class RuleBlockViewModel : ViewModelBase
+    public class RuleBlockDialogViewModel : ViewModelBase
     {
         public delegate void SendedVariablesAndRuleBlock(RuleBlockModel ruleBlock);
 
         public event SendedVariablesAndRuleBlock OnSendedVariableAndRuleBlockEvent;
 
         #region Constructors
-        public RuleBlockViewModel() : this(null, null) { }
+        public RuleBlockDialogViewModel() : this(null, null) { }
 
-        public RuleBlockViewModel(ObservableCollection<FuzzyVariableModel> sendedVariables) : this(sendedVariables, null) { }
+        public RuleBlockDialogViewModel(ObservableCollection<FuzzyVariableModel> sendedVariables) : this(sendedVariables, null) { }
 
-        public RuleBlockViewModel(ObservableCollection<FuzzyVariableModel> sendedFuzzyVariables, RuleBlockModel ruleBlock)
+        public RuleBlockDialogViewModel(ObservableCollection<FuzzyVariableModel> sendedFuzzyVariables, RuleBlockModel ruleBlock)
         {
             _sendedFuzzyVariables = sendedFuzzyVariables;
             _ruleBlock = ruleBlock;
@@ -127,17 +124,10 @@ namespace ExpertSystem.ViewModel
         /// Check if Sent variables list is not null and some item has selected
         /// </summary>
         /// <param name="obj">list box in that user select item</param>
-        /// <returns>true if sent variables not null and at lesst one item has selected</returns>
+        /// <returns>true if sent variables not null and at least one item has selected</returns>
         private bool CanTransferSentVariablesToInputOrOutputList(object obj)
         {
-            //if (obj == null)
-            //    return false;
-
-            //var values = (object[])obj;
-
-            //return _sendedFuzzyVariables?.Count > 0 && (int) values[0] != -1 && (bool) values[1];
-
-            return _sendedFuzzyVariables?.Count > 0 && (int)obj != -1;
+            return _sendedFuzzyVariables?.Count > 0;
         }
 
         private void ExecuteTransferSentVariableToInputListVariables(object obj)
@@ -145,8 +135,7 @@ namespace ExpertSystem.ViewModel
             if (obj == null)
                 return;
 
-            SendDataFromOneCollectionToSecond(_sendedFuzzyVariables, _ruleBlock.InputVariables, (int)obj);
-            _sendedFuzzyVariables.RemoveAt((int)obj);
+            SendDataFromOneCollectionToSecond(_sendedFuzzyVariables, _ruleBlock.InputVariables, obj);
         }
         #endregion
 
@@ -167,19 +156,28 @@ namespace ExpertSystem.ViewModel
         {
             if (obj == null)
                 return;
-
-            SendDataFromOneCollectionToSecond(_sendedFuzzyVariables, _ruleBlock.OutputVatiables, (int)obj);
-            _sendedFuzzyVariables.RemoveAt((int)obj);
+            
+            SendDataFromOneCollectionToSecond(_sendedFuzzyVariables, _ruleBlock.OutputVatiables, obj);
         }
         #endregion
 
-        private void SendDataFromOneCollectionToSecond(ObservableCollection<FuzzyVariableModel> copyFromVariables,
-            ObservableCollection<FuzzyVariableModel> recipientVariables, int indexCopyElement)
+        /// <summary>
+        /// Send from received Variables Collection Selected variables to Output OR Input ObservablesCollection<> in current RuleBlock
+        /// </summary>
+        /// <param name="fromVariables">collection, from which should to delete variables</param>
+        /// <param name="whereVariables">collection, where should move variables</param>
+        /// <typeparamref name="SelectedItemsCollection"/><param name="selectedVariables">collection of selected variables.</param>
+        private void SendDataFromOneCollectionToSecond(ObservableCollection<FuzzyVariableModel> fromVariables,
+            ObservableCollection<FuzzyVariableModel> whereVariables, object selectedVariables)
         {
-            if (indexCopyElement < 0)
-                return;
+            List<FuzzyVariableModel> whatVariablesMove = new List<FuzzyVariableModel>();
+            foreach (var item in (System.Collections.IList)selectedVariables)   //get selected variables from selectedItemsCollection
+            {
+                whatVariablesMove.Add((FuzzyVariableModel)item);
+            }
 
-            recipientVariables.Add(copyFromVariables.ElementAt(indexCopyElement));
+            (new Model.MembershipFunctionsModel.RuleBlockModels.RuleBlockManager()).
+                MoveVariablesFromOneCollectionToAnother(fromVariables, whereVariables, whatVariablesMove);          //move variables
         }
 
 
@@ -207,10 +205,10 @@ namespace ExpertSystem.ViewModel
         {
             if (obj == null)
                 return;
-
-            //TODO method for this
+            
             System.Windows.Controls.ListBox listBox = new System.Windows.Controls.ListBox();
             var objects = (object[])obj;
+            //searching listBox, in that was selected items
             foreach (var item in objects)
             {
                 if ((item as System.Windows.Controls.ListBox).SelectedItems.Count > 0)
@@ -220,42 +218,25 @@ namespace ExpertSystem.ViewModel
                 }
             }
 
-            List<FuzzyVariableModel> variablesToChange;
-            if (_ruleBlock.InputVariables.Contains(listBox.SelectedItems[0]))
+            if (listBox.SelectedItems.Count == 0)   //if there are not selected items - return
+                return;
+            
+            List<FuzzyVariableModel> selectedVariables = new List<FuzzyVariableModel>();
+            foreach (var item in listBox.SelectedItems)
             {
-                variablesToChange = new List<FuzzyVariableModel>(_ruleBlock.InputVariables);
-                foreach (var variable in listBox.SelectedItems)
-                {
-                    variablesToChange.Remove((FuzzyVariableModel)variable);
-                }
+                selectedVariables.Add((FuzzyVariableModel)item);
             }
+            
+            Model.MembershipFunctionsModel.RuleBlockModels.RuleBlockManager rbManager = 
+                new Model.MembershipFunctionsModel.RuleBlockModels.RuleBlockManager();
 
+            rbManager.MoveVariablesFromOneCollectionToAnother(
+                _ruleBlock.InputVariables, _sendedFuzzyVariables, selectedVariables);
 
-
-
-            //_sendedFuzzyVariables.Concat(variableCollection);
-
-
-
-            //TODO change this temporary shit code on more flexible  and do items multiselected
-            //List<System.Windows.Controls.ListBox> listBoxes = new List<System.Windows.Controls.ListBox>();
-            //var objects = (object[])obj;
-            //foreach (var item in objects)
-            //{
-            //    listBoxes.Add((System.Windows.Controls.ListBox)item);
-            //}
-
-            //if (listBoxes[0].SelectedIndex >= 0)
-            //{
-            //    _sendedFuzzyVariables.Add(_ruleBlock.InputVariables.ElementAt(listBoxes[0].SelectedIndex));
-            //    _ruleBlock.InputVariables.RemoveAt(listBoxes[0].SelectedIndex);
-            //}
-            //else if (listBoxes[1].SelectedIndex >= 0)
-            //{
-            //    _sendedFuzzyVariables.Add(_ruleBlock.OutputVatiables.ElementAt(listBoxes[1].SelectedIndex));
-            //    _ruleBlock.OutputVatiables.RemoveAt(listBoxes[1].SelectedIndex);
-            //}
+            rbManager.MoveVariablesFromOneCollectionToAnother(
+                _ruleBlock.OutputVatiables, _sendedFuzzyVariables, selectedVariables);
         }
+
         #endregion
     }
 }

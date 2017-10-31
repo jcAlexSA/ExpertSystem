@@ -1,5 +1,5 @@
 ﻿<Window
-    x:Class="ExpertSystem.View.RuleBlockView"
+    x:Class="ExpertSystem.View.Dialogs.RuleBlockDialogView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:ExpertSystem.ViewModel"
@@ -13,7 +13,7 @@
     WindowStartupLocation="CenterOwner">
 
     <Window.DataContext>
-        <local:RuleBlockViewModel />
+        <local:RuleBlockDialogViewModel />
     </Window.DataContext>
 
     <Window.Resources>
@@ -157,7 +157,7 @@
                     </StackPanel.Resources>-->
                         <Button
                             Command="{Binding ToInputListCommand}"
-                            CommandParameter="{Binding ElementName=ReceivedVariblesListBox, Path=SelectedIndex}"
+                            CommandParameter="{Binding ElementName=ReceivedVariblesListBox, Path=SelectedItems}"
                             Content="Input"
                             Style="{StaticResource ButtonVariableControlStyle}">
                             <!--<Button.CommandParameter>
@@ -169,7 +169,7 @@
                         </Button>
                         <Button
                             Command="{Binding ToOutputListCommand}"
-                            CommandParameter="{Binding ElementName=ReceivedVariblesListBox, Path=SelectedIndex}"
+                            CommandParameter="{Binding ElementName=ReceivedVariblesListBox, Path=SelectedItems}"
                             Content="Output"
                             Style="{StaticResource ButtonVariableControlStyle}">
                             <!--<Button.CommandParameter>
@@ -233,7 +233,8 @@
                         <ListBox
                             Name="OutputVariablesListBox"
                             Background="#F4F4FD"
-                            ItemsSource="{Binding Path=RuleBlock.OutputVatiables, Mode=TwoWay}">
+                            ItemsSource="{Binding Path=RuleBlock.OutputVatiables, Mode=TwoWay}"
+                            SelectionMode="Multiple">
                             <!--  this trigger need to unselect items if focue leaved  -->
                             <ListBox.Style>
                                 <Style TargetType="ListBox">

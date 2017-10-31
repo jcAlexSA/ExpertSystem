@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ExpertSystem.View
+namespace ExpertSystem.View.Dialogs
 {
     /// <summary>
-    /// Interaction logic for VariableView.xaml
+    /// Interaction logic for RuleBlockDialogView.xaml
     /// </summary>
-    public partial class VariableView : Window
+    public partial class RuleBlockDialogView : Window
     {
-        public VariableView()
+        public RuleBlockDialogView()
         {
             InitializeComponent();
         }

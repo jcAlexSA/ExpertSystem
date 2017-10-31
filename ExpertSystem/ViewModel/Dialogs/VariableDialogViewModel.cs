@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace ExpertSystem.ViewModel
 {
-    public class VariableViewModel : ViewModelBase
+    public class VariableDialogViewModel : ViewModelBase
     {
         public delegate void SendNewVariableEventHandler(FuzzyVariableModel newFuzzyVariable);
 

@@ -13,6 +13,10 @@
         <local:MainWindowViewModel />
     </Window.DataContext>
 
+    <!--<Window.Resources>
+        <inputVariableConverter:InputVariableConverter x:Key="inputVariableConverter" />
+    </Window.Resources>-->
+
     <Grid Background="#CDC5BF">
 
         <!--  Параменты grid  -->
@@ -114,42 +118,61 @@
             Дерево базы данных. Здесь будут содержаться переменные,
             базы правил и прочее (еще не придумал что)
         -->
-        <StackPanel Grid.Row="1">
-            <TreeView
-                Grid.Row="1"
-                Grid.Column="0"
-                MinHeight="180"
-                Margin="5"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Background="WhiteSmoke"
-                ItemsSource="{Binding FuzzyVariables}">
 
-                <TreeView.ItemTemplate>
+
+        <!--  for testing  -->
+        <TreeView
+            Grid.Row="1"
+            Grid.Column="0"
+            MinHeight="180"
+            Margin="5"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="WhiteSmoke">
+
+            <!--  Fuzzy variables items  -->
+            <!--<TreeViewItem Header="Variables">
+                <TreeViewItem Header="Input" ItemsSource="{Binding FuzzyVariables, Converter={StaticResource inputVariableConverter}}">
+                    <TreeViewItem.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </TreeViewItem.ItemTemplate>
+                </TreeViewItem>
+                <TreeViewItem Header="Otput" ItemsSource="{Binding FuzzyVariables}">
+                    <TreeViewItem.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </TreeViewItem.ItemTemplate>
+                </TreeViewItem>
+                <TreeViewItem Header="Intermediate" ItemsSource="{Binding FuzzyVariables}">
+                    <TreeViewItem.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </TreeViewItem.ItemTemplate>
+                </TreeViewItem>-->
+            <TreeViewItem Header="Variables" ItemsSource="{Binding FuzzyVariables}">
+                <TreeViewItem.ItemTemplate>
                     <DataTemplate>
+                        <!--  variables names  -->
                         <TextBlock Text="{Binding Name}" />
                     </DataTemplate>
-                </TreeView.ItemTemplate>
+                </TreeViewItem.ItemTemplate>
+            </TreeViewItem>
 
-            </TreeView>
-
-            <TreeView
-                Grid.Row="1"
-                Grid.Column="0"
-                MinHeight="180"
-                Margin="5"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Background="WhiteSmoke"
-                ItemsSource="{Binding RuleBlocks}">
-
-                <TreeView.ItemTemplate>
+            <!--  Rule block items  -->
+            <TreeViewItem Header="Rule Blocks" ItemsSource="{Binding RuleBlocks}">
+                <TreeViewItem.ItemTemplate>
                     <DataTemplate>
+                        <!--  rule blocks names  -->
                         <TextBlock Text="{Binding Name}" />
                     </DataTemplate>
-                </TreeView.ItemTemplate>
+                </TreeViewItem.ItemTemplate>
+            </TreeViewItem>
+        </TreeView>
+        <!--  end testing block  -->
 
-            </TreeView>
-        </StackPanel>
     </Grid>
 </Window>

@@ -50,7 +50,15 @@ namespace ExpertSystem.ViewModel
             get
             {
                 if (_ruleBlocks == null)
-                    _ruleBlocks = new ObservableCollection<RuleBlockModel>();
+                    _ruleBlocks = new ObservableCollection<RuleBlockModel>()
+                    {
+                        new RuleBlockModel("rule block 1"),
+                        new RuleBlockModel("rule block 2"),
+                        new RuleBlockModel("rule block 3"),
+                        new RuleBlockModel("rule block 4"),
+                        new RuleBlockModel("rule block 5")
+                    };
+
                 return _ruleBlocks;
             }
             set

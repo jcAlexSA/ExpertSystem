@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:ExpertSystem.ViewModel"
-    xmlns:multiConverter="clr-namespace:ExpertSystem.Model"
+    xmlns:multiConverter="clr-namespace:ExpertSystem.Model.Converters"
     Title="RuleBlockWizard"
     Width="549"
     Height="394"

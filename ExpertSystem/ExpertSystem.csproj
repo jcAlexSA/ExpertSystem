@@ -55,6 +55,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Infrastructure\RelayCommand.cs" />
+    <Compile Include="Model\Converters\EnumConverter.cs" />
+    <Compile Include="Model\Converters\InputVariableConverter.cs" />
+    <Compile Include="Model\Converters\MultiParametersConverter.cs" />
     <Compile Include="Model\EnumerationsModel.cs" />
     <Compile Include="Model\MembershipFunctionsModel\RuleBlockModels\RuleBlockManager.cs" />
     <Compile Include="Model\MembershipFunctionsModel\VariableModels\FuzzyVariableModel.cs" />
